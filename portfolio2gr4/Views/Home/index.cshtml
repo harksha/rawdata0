@@ -1,188 +1,24 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title></title>
-    <meta charset="utf-8" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="Css/bootstrap.min.css">
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="Css/styles.css" />
-    <link href="Content/bootstrap.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+	<title>SOVA</title>
+	<meta charset="utf-8" />
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="Css/bootstrap.min.css">
+	<link rel="stylesheet" href="Css/styles.css" /> 
+	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 </head>
 <body>
-    <div class="container-fluid">
-        <header class="navbar navbar-fixed-top">
+	 
+	<!--THE APP IS CALLED BELOW -->
+	<app></app>
+	 
 
-            <!-- NAVIGATION -->
-            <nav class="navbar navbar-default ">
-                <div class="container-fluid">
+@*<script src="~/App/search.js"></script>*@
+<!--<script src="App/script.js"></script>-->
 
-
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" id="navbar-toggle-button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">SOVA</a>
-
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="navbar-collapse" data-bind="with: navigationViewModel">
-                        <ul class="nav navbar-nav navbar-right" data-bind="foreach: menuItems">
-                            <li data-bind="css: {active: $parent.isActive($data)}">
-                                <a href='' data-bind="click: $parent.showContent, text: $data"></a>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-            <!-- NAVIGATION ENDS -->
-            <!--Search Start-->
-            <form class="form-search search">
-                <div data-bind="with: searchViewModel">
-                    <!--<div class="row">-->
-
-                    <div id="custom-search-input">
-                        <div class="input-group ">
-                            <input type="text" id="search_textbox" list="suggestionList" class="form-control input-lg" data-bind="textInput:searchText, event: {input:getSuggestions}" />
-                            <span class="input-group-btn">
-                                <button class="btn btn-info btn-lg" type="button" data-bind="click:searchFor">
-                                    <i class="glyphicon glyphicon-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <div class="row">
-                            <datalist id="suggestionList" data-bind="foreach:suggestions">
-                                <option data-bind="value:$data.Title"></option>
-                            </datalist>
-                        </div>
-
-                        <!--</div>-->
-                    </div>
-                </div>
-            </form>
-            <!--Search End-->
-        </header>
-
-        <div id="body_container" data-bind="template: {name: navigationViewModel.currentView}"></div>
-    </div>
-    <script type="text/html" id="users_view">
-        <h2>Users</h2>
-        <div data-bind="foreach: navigationViewModel.users">
-            <div data-bind="text: Url"></div>
-            <div data-bind="text: CreationDate"></div>
-            <div data-bind="text: Location"></div>
-            <div data-bind="text: Name"></div>
-        </div>
-    </script>
-    <script type="text/html" id="annotations_view">
-        <h2>Annotation</h2>
-        <input type="checkbox" data-bind="checked: navigationViewModel.showList" />
-        <div data-bind="foreach: navigationViewModel.data, visible: navigationViewModel.showList">
-            <div data-bind="text: $data.Url"></div>
-            <div data-bind="text: $data.Body"></div>
-            <div data-bind="text: $data.Date"></div>
-        </div>
-    </script>
-    <script type="text/html" id="categories_view">
-        <h2>Categories</h2>
-        <div data-bind="foreach: navigationViewModel.data">
-            <div data-bind="text: name"></div>
-        </div>
-    </script>
-    <script type="text/html" id="history_view">
-        <h2>History</h2>
-        <div data-bind="foreach: navigationViewModel.history">
-            <div data-bind="text: Url"></div>
-            <div data-bind="text: body"></div>
-            <div data-bind="text: userId"></div>
-        </div>
-    </script>
-    <!--
-    <script type="text/html" id="questions_view">
-        <h2>Questions</h2>
-        <div data-bind="foreach: navigationViewModel.questions">
-            <div data-bind="text: Url"></div>
-            <div data-bind="text: CreationDate"></div>
-            <div data-bind="text: Body"></div>
-            <div><a data-bind="text:Title, attr:{href:Url}"></a></div>
-        </div>
-    </script>-->
-    <script type="text/html" id="questions_search_view">
-        <div class="col-sm-12">
-            <div class="page-header text-muted">
-                <h2>Questions: Search Result</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-10" data-bind="foreach: searchViewModel.searchResult">
-                <div class="search-content">
-                    <a data-bind="attr:{href:Url}"><h3 data-bind="text:Title"></h3></a>
-                    <h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-                        <small class="text-muted">CreationDate :<span data-bind="text:CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
-                    </h4>
-                </div>
-            </div>
-        </div>
-    </script>
-    <script type="text/html" id="questions_view">
-        <div class="col-sm-12">
-            <div class="page-header text-muted">
-                <h2>Questions</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-10" data-bind="foreach: navigationViewModel.questions">
-                <div class="search-content">
-                    <a data-bind="attr:{href:Url}"><h3 data-bind="text:Title"></h3></a>
-                    <h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-                        <small class="text-muted"><span data-bind="text: CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
-                    </h4>
-                </div>
-            </div>
-        </div>
-    </script>
-    <!--showing a specific question-->
-    <script type="text/html" id="question_view">
-        <div class="row">
-            <div id="question-related">
-                <h3>question title</h3>
-                <section>question body</section>
-                <h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-                    <small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-                </h4>
-                <div id="comments-foreach">
-                    <div id="comment-body"></div>
-                    <h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-                        <small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-                    </h4>
-                </div>
-                <div id="Answer-foreach">
-                    <div id="Answer-body"></div>
-                    <h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-                        <small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-                    </h4>
-                </div>
-            </div>
-
-        </div>
-    </script>
-
-
-
-
-    <footer></footer>
-
-    <script src="Scripts/jquery-2.1.4.js"></script>
-    <script src="Scripts/bootstrap.js"></script>
-    <script src="Scripts/knockout-3.4.0.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
-    <script src="~/App/search.js"></script>
-    <!--<script src="App/script.js"></script>-->
-    <script src="App/main.js"></script>
+	<script src="Scripts/require.js"></script>
+	<script src="Scripts/require.config.js"></script> 
+	<script src="Scripts/app.js"></script> 
 </body>
 </html>

@@ -1,21 +1,4 @@
-﻿/*******************************
-***Revealing module experiment** 
-var calculator = (function () {
-
-    function add(a, b) {
-        alert(a + b);
-    }
-    function minus(a, b) {
-        alert(a - b);
-    }
-    return {
-        Add: add, Minus: minus
-    }
-
-})();
-
-calculator.Add(1, 1);
-******************************/
+﻿ 
 var searchViewModel = (function () {
     var searchText = ko.observable("");
     var suggestions = ko.observableArray([]);// for searchbar

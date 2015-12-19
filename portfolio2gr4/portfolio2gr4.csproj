@@ -128,9 +128,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="addanno.html" />
+    <Content Include="AppContent\annotations.html" />
+    <Content Include="AppContent\history.html" />
+    <Content Include="AppContent\users.html" />
+    <Content Include="App\annotationsViewModel.js" />
+    <Content Include="App\historyViewModel.js" />
     <Content Include="App\JavaScript.js" />
     <Content Include="App\main.js" />
-    <Content Include="App\script.js" />
+    <Content Include="App\mainViewModel.js" />
+    <Content Include="App\questionsViewModel.js" />
+    <Content Include="App\scraps.js" />
+    <Content Include="App\usersViewModel.js" />
     <Content Include="Css\bootstrap.min.css" />
     <Content Include="Css\dev\global.css" />
     <Content Include="Css\dev\header.css" />
@@ -143,6 +151,8 @@
     <Content Include="Css\.pleeeaserc" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="HtmlPage1.html" />
+    <Content Include="main.html" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -150,6 +160,10 @@
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="App\search.js" />
+    <Content Include="Scripts\r.js" />
+    <Content Include="Scripts\require.config.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\text.js" />
     <Content Include="Scripts\typeahead.bundle.js" />
     <Content Include="Scripts\typeahead.js" />
     <Content Include="search.css" />
@@ -190,6 +204,7 @@
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\menu.cshtml" />
+    <Content Include="AppContent\questions.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -199,11 +214,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Answers\" />
-    <Folder Include="Views\BaseApi\" />
-    <Folder Include="Views\Comment\" />
-    <Folder Include="Views\Question\" />
-    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
