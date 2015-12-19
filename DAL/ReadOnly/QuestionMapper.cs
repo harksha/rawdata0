@@ -6,19 +6,23 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using DAL.ReadOnly;
 
-namespace DAL 
+namespace DAL
 {
 	public class QuestionMapper : DataMapper<Question>
 	{
+		public UserMapper UserMapper { get; set; }
+
+
 		public QuestionMapper(string connectionString) : base(connectionString)
 		{
 			TableName = "post";
 			Attributes = new string[] { "body", "score", "title", "creationDate", "ownerUserId" };
-		}
+			UserMapper = new UserMapper(connectionString);
+        }
 
 		public override Question Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows && reader.Read())
+			if (reader.Read() && reader.HasRows)
 			{
 				int q_id, q_score;
 				string q_body, q_title, q_owner;
@@ -36,7 +40,7 @@ namespace DAL
 				else { q_date = DateTime.MinValue; }
 				if (!reader.IsDBNull(5)) { q_owner = FetchOwnername(reader.GetInt32(5)); }
 				else { q_owner = "unknown"; }
-
+				
 				var question = new Question
 				{
 					Id = q_id,
@@ -70,27 +74,8 @@ namespace DAL
 				}
 			}
 		}
-		// need to be changed 
-		public User GetOwner(int ownerid)
-		{
-			using (var connection = new MySqlConnection(ConnectionString))
-			{
-				connection.Open();
-				var cmd = new MySqlCommand();
-				cmd.Connection = connection;
-				cmd.CommandText = "select * from user where  id= @ID";
-				cmd.Parameters.AddWithValue("@ID", ownerid);
-				using (var reader = cmd.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						string uname = reader.GetString(0);
-						//return uname;
-					}
-					//return "unknown";
-				}
-			}
-			return null;
-		}
+
+	
 	}
 }
+

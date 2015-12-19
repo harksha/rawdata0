@@ -20,12 +20,12 @@ namespace DAL.Rewrittable
 			return new Vote { };
 		}
 
-		public override void Insert(Vote vote) { }
-		public override void Update(Vote vote) { }
+		public override int Insert(Vote vote) { throw new NotImplementedException("not supported in this project"); }
+		public override int Update(Vote vote) { throw new NotImplementedException("not supported in this project"); }
 
 		public override Vote Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows && reader.Read())
+			if (reader.Read() && reader.HasRows)
 			{
 				int v_id, v_postId, v_voteType;
 				DateTime v_date;

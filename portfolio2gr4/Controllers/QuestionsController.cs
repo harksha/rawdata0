@@ -13,10 +13,8 @@ using WebService.Models;
 namespace portfolio2gr4.Controllers
 {
 	public class QuestionsController : BaseApiController
-	{
-		static QuestionMapper dataMapper = new QuestionMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		QuestionRepository _questionRepository = new QuestionRepository(dataMapper);
-
+	{		
+		private QuestionRepository _questionRepository = new QuestionRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 		public HttpResponseMessage Get(int size, int page) {
 			var helper = new UrlHelper(Request);
 			if (size > 100) size = 10;

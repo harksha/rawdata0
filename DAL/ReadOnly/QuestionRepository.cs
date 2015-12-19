@@ -9,6 +9,6 @@ namespace DAL
 {
 	public class QuestionRepository : Repository<Question>
 	{
-		public QuestionRepository(IDataMapper<Question> dataMapper) : base(dataMapper) { }		
+		public QuestionRepository(String connectionString) : base(new QuestionMapper(connectionString)) { }		
 	}
 }

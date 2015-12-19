@@ -17,7 +17,7 @@ namespace DAL.ReadOnly
 
 		public override Answer Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows && reader.Read())
+			if (reader.Read()&&reader.HasRows)
 			{
 				int a_id, a_score, a_parent;
 				string a_body, a_title, a_owner;

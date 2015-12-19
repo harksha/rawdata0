@@ -37,7 +37,7 @@ namespace DAL
 		
 
 		/// <summary>
-		/// To Ionana , I think this method shouold be moved to questions repository class
+		/// To Ionana , I think this method shouold be moved to questions repository class or atleast you should change method name 
 		/// Panpan suggested here . 
 		/// </summary>
 		/// <param name="key"></param>
@@ -53,6 +53,27 @@ namespace DAL
 			var w_list = new List<string>(parsedWords);
 			w_list.RemoveAt(0);
 			parsedWords = w_list.Select(word => "AND body like " + word).ToArray();
+
+			var sql = string.Format("SELECT ID, {0} FROM {1} {2} {5} LIMIT {3} OFFSET {4}",
+					string.Join(", ", DataMapper.Attributes),
+					DataMapper.TableName,
+					sqlWhere,
+					limit,
+					offset,
+					string.Join(" ", parsedWords)
+			);
+			return DataMapper.Query(new MySqlCommand(sql));
+		}
+		
+		public virtual IEnumerable<T> GetByKeyWords(string key,string column, int limit = 10, int offset = 0)
+		{
+			string[] stringSeparators = new string[] { " ", "," };
+			string[] words = key.Split(stringSeparators, StringSplitOptions.None);
+			string[] parsedWords = words.Select(word => "'%" + word + "%'").ToArray();
+			var sqlWhere = "WHERE "+ column + " like " + parsedWords[0];
+			var w_list = new List<string>(parsedWords);
+			w_list.RemoveAt(0);// why ?
+			parsedWords = w_list.Select(word => "AND " + column + " like " + word).ToArray();
 
 			var sql = string.Format("SELECT ID, {0} FROM {1} {2} {5} LIMIT {3} OFFSET {4}",
 					string.Join(", ", DataMapper.Attributes),
@@ -145,8 +166,17 @@ namespace DAL
 				qid);
 			return DataMapper.Query(new MySqlCommand(sql));
 		}
-
-		public IEnumerable<T> GetByFullTextSearch(string searchText, string columns, int limit = 10, int offset = 0, string orderby = "relevance", string ASC_DESC = "DESC")
+		/// <summary>
+		/// a search solution use full text search 
+		/// </summary>
+		/// <param name="searchText">the text received from searchbox </param>
+		/// <param name="columns">the column in database</param>
+		/// <param name="limit">the records number that will be returned</param>
+		/// <param name="offset">start point resultset</param>
+		/// <param name="orderby">the column that is used to be ordered by</param>
+		/// <param name="ASC_DESC">ordering method</param>
+		/// <returns></returns>
+		public virtual IEnumerable<T> GetByFullTextSearch(string searchText, string columns, int limit = 10, int offset = 0, string orderby = "relevance", string ASC_DESC = "DESC")
 		{
 			var condition = "where match (" + columns + ") " + "against( '" + searchText + "') ORDER BY " + orderby + " " + ASC_DESC;
 			var sql = string.Format("SELECT ID, {0}{1} FROM {2} {3} limit {4} offset {5} ",

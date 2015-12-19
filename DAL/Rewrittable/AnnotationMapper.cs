@@ -10,7 +10,7 @@ namespace DAL.Rewrittable
 {
 	public class AnnotationMapper : UpdatableDataMapper<Annotation>
 	{
-
+		public UserMapper userMapper { get; set; }
 		public AnnotationMapper(string connectionString) : base(connectionString)
 		{
 			TableName = "annotation";
@@ -29,7 +29,7 @@ namespace DAL.Rewrittable
 					cmd.Connection = connection;
 					using (var reader = cmd.ExecuteReader())
 					{
-						if (reader.Read() && reader.HasRows)
+						if (reader.HasRows)
 						{
 							return Map(reader);
 						}
@@ -40,7 +40,7 @@ namespace DAL.Rewrittable
 
 		}
 
-		public override void Insert(Annotation annotation)
+		public override int Insert(Annotation annotation)
 		{
 			var sql = string.Format("insert into {0} ({1}) values({2})",
 				TableName, AttributeList, DecoratedAttributeList(x => "@" + x));
@@ -49,12 +49,16 @@ namespace DAL.Rewrittable
 			cmd.Parameters.AddWithValue("@" + Attributes[1], annotation.Date);
 			cmd.Parameters.AddWithValue("@" + Attributes[2], annotation.PostId);
 			cmd.Parameters.AddWithValue("@" + Attributes[3], annotation.UserId);
-			ExecuteNonQuery(cmd);
+			return ExecuteNonQuery(cmd);
 		}
 
+		/**
+		*   I am sorry that to commend out your code ioana. I know you have implemented 
+		*   very fancy function here , but it can not pass my test and I need this function 
+		*   to work for the displaying data on webpage.
+		*   panpan wrote . 
 		public override void Update(Annotation annotation)
 		{
-
 			// CHANGE THIS 
 			var sql = string.Format("update {0} set {1} where postid= @postid",
 				TableName, AttributeList, DecoratedAttributeList((x => x + "=@" + x)));
@@ -64,11 +68,17 @@ namespace DAL.Rewrittable
 			cmd.Parameters.AddWithValue("@" + Attributes[0], annotation.Body);
 			ExecuteNonQuery(cmd);
 
-		}
+		}*/
 
+		public override int Update(Annotation a)
+		{
+			var sql = "update " + TableName + " set body = '" + a.Body + "' and date ='" + DateTime.Now.ToString("s") + "'  where postID =" + a.PostId + " and userID=" + a.UserId;
+			var cmd = new MySqlCommand(sql);
+			return ExecuteNonQuery(cmd);
+		}
 		public override Annotation Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows&&reader.Read())
+			if (reader.Read())
 			{
 				int a_id, a_postId, a_userId;
 				string a_body;

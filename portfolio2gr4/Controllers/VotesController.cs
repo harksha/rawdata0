@@ -14,8 +14,8 @@ namespace portfolio2gr4.Controllers
 {
 	public class VotesController : BaseApiController
 	{
-		static VoteMapper dataMapper = new VoteMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		VoteRepository _votesRepository = new VoteRepository(dataMapper);
+		
+		private VoteRepository _votesRepository = new VoteRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 
 		public IEnumerable<VoteModel> Get(int pid) {
 			var helper = new UrlHelper(Request);

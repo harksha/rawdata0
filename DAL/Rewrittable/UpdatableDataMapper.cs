@@ -10,11 +10,11 @@ namespace DAL.Rewrittable
 	public abstract class UpdatableDataMapper<T> : DataMapper<T>, IUpdatableDataMapper<T> where T : class, IIdentityField
 	{
 		public UpdatableDataMapper(string connectionString) : base(connectionString) { }
-		public abstract void Insert(T entity);
-		public abstract void Update(T entity);
+		public abstract int Insert(T entity);
+		public abstract int Update(T entity);
 		public abstract T GetByPostAndUser(int postid, int userid);
 
-		protected int NextId()
+		protected int NextId()// purpose ?
 		{
 			using (var connection = new MySqlConnection(ConnectionString))
 			{

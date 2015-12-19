@@ -15,8 +15,7 @@ namespace DAL.Rewrittable.Tests
 		private void initiaizeTest()
 		{
 			string connectionString = "server=wt-220.ruc.dk;database=raw4;uid=raw4;pwd=raw4";
-			AnnotationMapper dataMapper = new AnnotationMapper(connectionString);
-			_annoRepository = new AnnotationRepository(dataMapper);
+			_annoRepository = new AnnotationRepository(connectionString);
 		}
 		/// <summary>
 		/// given id = 6;
@@ -31,18 +30,25 @@ namespace DAL.Rewrittable.Tests
 			Assert.AreEqual(7664, annotation.PostId);
 		}
 		/// <summary>
-		/// given userid = 1 and postid = 7664
-		///  should have id = 6
+		/// given userid = 72 and postid = 105975
+		///  should have id = 4
 		/// </summary>
 		[TestMethod()]
 		public void getByPostAndUserTest()
 		{
 			initiaizeTest();
-			var annotation = _annoRepository.GetByPostAndUser(7664, 1);
-			var actual = annotation.Id;
-			Assert.IsTrue(6 == actual);
+			var annotation = _annoRepository.GetByPostAndUser(105975, 72);
+
+			var actual = new Annotation { Id=4,PostId= 105975,UserId=72,Body="0",Date= DateTime.Parse("2011-10-04 01:01:00") };
+			Assert.AreEqual(annotation.Id, actual.Id);
+			Assert.AreEqual(annotation.Body, actual.Body);
+			Assert.AreEqual(annotation.PostId, actual.PostId);
+			Assert.AreEqual(annotation.UserId, actual.UserId);
+			Assert.AreEqual(annotation.Date, actual.Date);
+
 		}
 
+	
 
 		[TestMethod()]
 		public void InsertTest()
@@ -60,28 +66,27 @@ namespace DAL.Rewrittable.Tests
 				Body = "annotation unit test , postid = " + postid + " userid = " + userid,
 				Date = DateTime.Now
 			};
-			_annoRepository.Insert(expected);
-			initiaizeTest();
+			int count = _annoRepository.Insert(expected);
 			Annotation actual = _annoRepository.GetByPostAndUser(postid, userid);
 			Assert.IsTrue(expected.PostId == actual.PostId);
 			Assert.IsTrue(expected.UserId == actual.UserId);
 		}
 
 		/// <summary>
-		/// given annotation with userid = 3351 , postid = 1370 that saved in database before test
+		/// given annotation with userid = 72 , postid = 105975 that saved in database before test
 		/// </summary>
 		[TestMethod()]
 		public void UpdationTest()
 		{
 			initiaizeTest();
 			Random rdm = new Random();
-			Annotation a = _annoRepository.GetByPostAndUser(1370, 3351);
+			Annotation a = _annoRepository.GetByPostAndUser(105975, 72);
+            var body = a.Body;
 			a.Body = "new unit test with a random number = " + rdm.Next(100000);
-			_annoRepository.Updation(a);
-			Annotation actual = _annoRepository.GetByPostAndUser(1370, 3351);
+			lock (_annoRepository) { int count = _annoRepository.Updation(a); }
+			initiaizeTest();
+            Annotation actual = _annoRepository.GetByPostAndUser(105975, 72);
 			Assert.AreEqual(a.Body, actual.Body);
-
-
 		}
 
 		//[TestMethod()]

@@ -10,7 +10,7 @@ namespace DAL
 {
 	public class HistoryRepository : Repository<History>
 	{
-		public HistoryRepository(IUpdatableDataMapper<History> dataMapper) : base(dataMapper) { }
+		public HistoryRepository(string connectiomString) : base(new HistoryMapper(connectiomString)) { }
 
 		public void Insert(History history)
 		{

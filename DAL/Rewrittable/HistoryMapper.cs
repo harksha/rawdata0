@@ -32,7 +32,7 @@ namespace DAL.Rewrittable
 			}
 		}*/
 
-		public override void Insert(History history)
+		public override int  Insert(History history)
 		{
 			var sql = string.Format("insert into {0} ({1}) values({2})",
 				TableName, AttributeList, DecoratedAttributeList(x => "@" + x));
@@ -40,7 +40,7 @@ namespace DAL.Rewrittable
 			cmd.Parameters.AddWithValue("@" + Attributes[0], history.Body);
 			cmd.Parameters.AddWithValue("@" + Attributes[1], history.Date);
 			cmd.Parameters.AddWithValue("@" + Attributes[2], history.UserId);
-			ExecuteNonQuery(cmd);
+			return ExecuteNonQuery(cmd);
 		}
 		public override History GetByPostAndUser(int post, int user)
 		{
@@ -49,7 +49,7 @@ namespace DAL.Rewrittable
 
 		public override History Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows && reader.Read())
+			if (reader.Read() && reader.HasRows)
 			{
 				int a_id, a_userId;
 				string a_body;
@@ -70,7 +70,6 @@ namespace DAL.Rewrittable
 					Id = a_id,
 					Body = a_body,
 					Date = a_date,
-
 					UserId = a_userId
 
 				};
@@ -79,9 +78,9 @@ namespace DAL.Rewrittable
 			return null;
 		}
 
-		public override void Update(History history)
+		public override int Update(History history)
 		{
-
+			throw new NotImplementedException("this function is not supported in this project");
 		}
 
 	}

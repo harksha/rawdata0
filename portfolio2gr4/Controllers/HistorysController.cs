@@ -15,8 +15,8 @@ namespace portfolio2gr4.Controllers
 {
 	public class HistorysController : BaseApiController
 	{
-		static HistoryMapper dataMapper = new HistoryMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		HistoryRepository _hisRepository = new HistoryRepository(dataMapper);
+		
+		private HistoryRepository _hisRepository = new HistoryRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 
 
 		/*	static HistoryMapper dataMapper = new HistoryMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
@@ -33,6 +33,11 @@ namespace portfolio2gr4.Controllers
 		{
 			var helper = new UrlHelper(Request);
 			return _hisRepository.GetByUserId(uid).Select(vote => ModelFactory.Create(vote));
+		}
+		public IEnumerable<HistoryModel> GetBySearchName(string searchText_History)
+		{
+			var helper = new UrlHelper(Request);// I don't need url helper here 
+			return _hisRepository.GetByFullTextSearch(searchText_History, "body", 1000, 0).Select(annotation => ModelFactory.Create(annotation));
 		}
 		/*public HttpResponseMessage Post([FromBody] HistoryModel model)
 		{

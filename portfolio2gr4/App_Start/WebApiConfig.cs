@@ -13,6 +13,11 @@ namespace portfolio2gr4
 				routeTemplate: "api/users/{id}",
 				defaults: new { controller = "Users", id = RouteParameter.Optional }
 				);
+			config.Routes.MapHttpRoute(
+				name: "UserSearch",
+				routeTemplate: "api/users/GetByKey/{searchText_Name}",
+				defaults: new { controller = "Users" }
+			);
 
 			config.Routes.MapHttpRoute(
 				name: "QuestionApi",
@@ -41,7 +46,6 @@ namespace portfolio2gr4
 				routeTemplate: "api/questions/search/{searchText}",
 				defaults: new { controller = "Questions" }
 			);
-
 			config.Routes.MapHttpRoute(
 				name: "AnswerApi",
 				routeTemplate: "api/questions/{qid}/answers",
@@ -70,12 +74,17 @@ namespace portfolio2gr4
 				routeTemplate: "api/questions/{qid}/answers/{pid}/votes",
 				defaults: new { controller = "Votes" }
 			);
-			config.Routes.MapHttpRoute(
+			
+            config.Routes.MapHttpRoute(
 				name: "AnnotationApi",
 				routeTemplate: "api/annotations/{id}",
 				defaults: new { controller = "Annotations", id = RouteParameter.Optional }
 				);
-
+			config.Routes.MapHttpRoute(
+				name: "AnnotationSearch",
+				routeTemplate: "api/annotations/search/{searchText_Annotation}",
+				defaults: new { controller = "Annotations" }
+			);
 			config.Routes.MapHttpRoute(
 				name: "AnnotationApiByUserAndPost",
 				routeTemplate: "api/annotations/{postid}/{userid}",

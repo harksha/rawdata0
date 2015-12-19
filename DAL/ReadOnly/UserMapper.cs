@@ -16,7 +16,7 @@ namespace DAL
 		}
 		public override User Map(MySqlDataReader reader)
 		{
-			if (reader.HasRows && reader.Read())
+			if (reader.Read() && reader.HasRows)
 			{
 				int uid, u_rep, u_age, u_up, u_down;
 				string u_name, u_websiteUrl, location;

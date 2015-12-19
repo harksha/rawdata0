@@ -14,8 +14,7 @@ namespace portfolio2gr4.Controllers
 {
 	public class AnnotationsController : BaseApiController
 	{
-		static AnnotationMapper dataMapper = new AnnotationMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		AnnotationRepository _annoRepository = new AnnotationRepository(dataMapper);
+		AnnotationRepository _annoRepository = new AnnotationRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 
 		public IEnumerable<AnnotationModel> Get()
 		{
@@ -70,6 +69,9 @@ namespace portfolio2gr4.Controllers
 			_annoRepository.Updation(annotation);
 			return Request.CreateResponse(HttpStatusCode.OK);
 		}
-
+		public IEnumerable<AnnotationModel> GetByKeyWords(string searchText_Annotation)
+		{
+			return _annoRepository.GetByKeyWords(searchText_Annotation,"body",4,1000,0).Select(annotation => ModelFactory.Create(annotation));
+		}
 	}
 }

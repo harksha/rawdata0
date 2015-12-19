@@ -10,10 +10,8 @@ using System.Web.Http.Routing;
 namespace portfolio2gr4.Controllers
 {
 	public class AnswersController : BaseApiController
-	{
-		static AnswerMapper dataMapper = new AnswerMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		AnswerRepository _answerRepository = new AnswerRepository(dataMapper);
-
+	{		
+		private AnswerRepository _answerRepository = new AnswerRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 		public IEnumerable<AnswerModel> Get(int qid)
 		{
 			var helper = new UrlHelper(Request);

@@ -2,7 +2,7 @@
 var searchViewModel = (function () {
     var searchText = ko.observable("");
     var suggestions = ko.observableArray([]);// for searchbar
-    var searchResult=ko.observableArray([]);// for page body
+    var searchResult = ko.observableArray([]);// for page body
     //var visible = ko.observable(false);
     //var selected = false;
     //var toggle = function (target, event) {
@@ -14,7 +14,15 @@ var searchViewModel = (function () {
     var getSuggestions = function (target, event) {
         switch (navigationViewModel.currentMenu()) {
             case "Users":
-                //not implemented yet
+                alert("user");
+                $.getJSON("/api/users/GetByKey/" + searchText(), function (result) {
+                    if (result.length >= 1) {
+                        var names = $.map(result, function (n) {
+                            return { Title: n.Name, Url: n.Url };
+                        });
+                        suggestions(names);
+                    }
+                });
                 break;
             case "Annotations":
                 //not implemented yet
@@ -33,18 +41,25 @@ var searchViewModel = (function () {
                 //not implemented yet
                 break;
         }
+        selecte_suggestion(navigationViewModel.currentMenu());
     };
     var searchFor = function (target, event) {
-        alert("hello");
         switch (navigationViewModel.currentMenu()) {
             case "Users":
-                //not implemented yet
+                $.getJSON("/api/users/GetByKey/" + searchText(), function (result) {
+                    if (result.length >= 1) {
+                        var names = $.map(result, function (n) {
+                            return { Title: n.Name, Url: n.Url };
+                        });
+                        suggestions(names);
+                    }
+                });
                 break;
             case "Annotations":
                 //not implemented yet
                 break;
             case "Questions":
-                $.getJSON("api/questions/search/" + searchText(), function (result) {
+                $.getJSON("api/questions/search_title/" + searchText(), function (result) {
                     if (result.length >= 1) {
                         //var titles = $.map(result, function (q) {
                         //    return q.Title;
@@ -61,12 +76,48 @@ var searchViewModel = (function () {
                 break;
         }
     };
+    var selecte_suggestion = function (currentMenu)
+    {
+       
+        switch (currentMenu) {
+            case "Users":
+                $("user_suggestions").toggle(true);
+                $("question_suggestions").toggle(false);
+                $("Annotation_suggestions").toggle(false);
+                $("history_suggestions").toggle(false);
+                break;
+            case "Questions":
+                $("user_suggestions").toggle(false);
+                $("question_suggestions").toggle(true);
+                $("Annotation_suggestions").toggle(false);
+                $("history_suggestions").toggle(false);
+                break;
+            case "Annotations":
+                $("user_suggestions").toggle(false);
+                $("question_suggestions").toggle(false);
+                $("Annotation_suggestions").toggle(true);
+                $("history_suggestions").toggle(false);
+                break;
+            case "History":
+                $("user_suggestions").toggle(false);
+                $("question_suggestions").toggle(false);
+                $("Annotation_suggestions").toggle(false);
+                $("history_suggestions").toggle(true);
+                break;
+            default:
+                $("question_suggestions").toggle(false);
+                $("user_suggestions").toggle(false);
+                $("Annotation_suggestions").toggle(false);
+                $("history_suggestions").toggle(false);
+                break;
+        }
 
+    };
     return {
         searchText: searchText,
         suggestions: suggestions,
         getSuggestions: getSuggestions,
-        searchFor:searchFor,
+        searchFor: searchFor,
         searchResult: searchResult
         //visible: visible
         //selected: selected

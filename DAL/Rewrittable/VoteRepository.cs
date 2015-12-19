@@ -8,7 +8,7 @@ namespace DAL.Rewrittable
 {
 	public class VoteRepository : Repository<Vote>
 	{
-		public VoteRepository(IUpdatableDataMapper<Vote> dataMapper) : base(dataMapper) { }
+		public VoteRepository(string connectionString) : base(new VoteMapper(connectionString)) { }
 		public void Insert(Vote vote)
 		{
 			UpdatableDataMapper.Insert(vote);

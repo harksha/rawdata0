@@ -14,9 +14,8 @@ namespace DAL.ReadOnly.Tests
 		private AnswerRepository answerRepository;
         private void initilizeTest()
 		{
-			String connectionString = "server=wt-220.ruc.dk;database=raw4;uid=raw4;pwd=raw4";
-            AnswerMapper answerMaper = new AnswerMapper(connectionString);
-			 answerRepository = new AnswerRepository(answerMaper);
+			string connectionString = "server=wt-220.ruc.dk;database=raw4;uid=raw4;pwd=raw4";
+			 answerRepository = new AnswerRepository(connectionString);
 		}
 		/// <summary>
 		/// only test limit number.

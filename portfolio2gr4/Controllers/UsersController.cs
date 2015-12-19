@@ -13,14 +13,18 @@ namespace portfolio2gr4.Controllers
 {
 	public class UsersController : BaseApiController
 	{
-		static UserMapper dataMapper = new UserMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		UserRepository _userRepository = new UserRepository(dataMapper);
-
+		private UserRepository _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 		public IEnumerable<UserModel> Get()
 		{
 			var helper = new UrlHelper(Request);
 			return _userRepository.GetAll()
 				.Select(user => ModelFactory.Create(user));
+		}
+		public IEnumerable<UserModel> GetBySearchName(string searchText_Name)
+		{
+			var helper = new UrlHelper(Request);// I don't need url helper here 
+			return _userRepository.GetByKeyWords(searchText_Name, "displayName",10,0).Select(user => ModelFactory.Create(user)); ;
+			//return _userRepository.GetByFullTextSearch(searchText_Name, "displayName", 1000, 0).Select(user => ModelFactory.Create(user));
 		}
 
 		public HttpResponseMessage GetById(int id)
