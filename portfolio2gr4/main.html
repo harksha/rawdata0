@@ -14,12 +14,31 @@
 
 			 
 			<div class="collapse navbar-collapse" id="navbar-collapse">
-
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search">
+						<input type="text" class="form-control" placeholder="Search" data-bind="textInput:searchText, event: {input:getSuggestions}" >
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
+					<button type="button" class="btn btn-default" data-bind="click:searchFor">Submit</button>
+                    <div class="row" id="question_suggestions">
+                        <datalist id="question_suggestionList" data-bind="foreach:suggestions">
+                            <option data-bind="value:$data.Title"></option>
+                        </datalist>
+                    </div>
+                    <div class="row" id="user_suggestions">
+                        <datalist id="user_suggestionsList" data-bind="foreach:suggestions">
+                            <option data-bind="value:$data.Name"></option>
+                        </datalist>
+                    </div>
+                    <div class="row" id="Annotation_suggestions">
+                        <datalist id="Annotation_suggestionsList" data-bind="foreach:suggestions">
+                            <option data-bind="value:$data.Body"></option>
+                        </datalist>
+                    </div>
+                    <div class="row" id="history_suggestions">
+                        <datalist id="history_suggestionsList" data-bind="foreach:suggestions">
+                            <option data-bind="value:$data.Body"></option>
+                        </datalist>
+                    </div>
 				</form>
 
 				<ul class="nav navbar-nav navbar-right" data-bind="foreach: menuItems">
