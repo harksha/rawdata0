@@ -1,4 +1,4 @@
-﻿define(['knockout', 'jquery'], function (ko, $) {
+﻿define(['knockout', 'jquery','knockout.validation'], function (ko, $, validation) {
 	function viewModel() {
 //OBJECTS:
 		var menuItems = ["Questions", "Users", "Annotations", "History"];
@@ -10,10 +10,13 @@
 				},
 				viewData = ko.observable([]);
 		//SEARCH:
-		var searchText = ko.observable("");
+		var searchText = ko.observable("").extend({
+			required: true,
+			minLength: 3,
+		});
 		var suggestions = ko.observableArray([]);// for searchbar
 		var searchResult = ko.observableArray([]);// for page body
-
+		var showSuggestions = ko.observable(false);
 
 //UTIL FUNCTIONS:
 		isActive = function (menu) { 
@@ -29,8 +32,12 @@
 					//not implemented yet
 					break;
 				case "Questions":
+					
+					console.log('tg', target);
+					console.log('eve', event);
 					$.getJSON("api/questions/search_title/" + searchText(), function (result) {
 						if (result.length >= 1) {
+							showSuggestions(true);
 							var titles = $.map(result, function (q) {
 								return { Title: q.Title, Url: q.Url };
 							});
@@ -55,14 +62,11 @@
 					console.log(searchText());
 					$.getJSON("api/questions/search/" + searchText(), function (result) {
 						if (result.length >= 1) {
-							//var titles = $.map(result, function (q) {
-							//    return q.Title;
-							//});
 							searchResult(result);
 							viewData(searchResult);
 							changeContent("Questions");
 						} else {
-							alert("no result found!");
+							console.log("no result found!");
 						}
 					});
 					break;
@@ -82,6 +86,7 @@
 			searchText: searchText,
 			suggestions: suggestions,
 			getSuggestions: getSuggestions,
+			showSuggestions:showSuggestions,
 			searchFor: searchFor,
 			searchResult: searchResult
 			 

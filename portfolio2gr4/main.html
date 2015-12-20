@@ -16,12 +16,13 @@
 				<form class="navbar-form navbar-left" role="search">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Search" data-bind="textInput:searchText, event: {input:getSuggestions}" >
+						<p class="col-xs-12 col-sm-6 validation-box" data-bind="validationMessage:searchText"></p>
 					</div>
 					<button type="button" class="btn btn-default" data-bind="click:searchFor">Submit</button>
-					<div class="questions-suggestions">
+					<div class="questions-suggestions" data-bind="visible:showSuggestions">
 						<ul class="suggestions-list col-xs-12 col-sm-6" data-bind="foreach: suggestions">
 							<li class="suggestion">
-								<a href="#" class="suggestion-link" data-bind="text: $data.Title"></a>
+								<a href="" class="suggestion-link" data-bind="text: $data.Title"></a>
 							</li>
 						</ul>
 					</div>
