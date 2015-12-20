@@ -5,3 +5,6 @@
 	color:var(--serenity);
 }
 header { position:relative; display: block; }
+.suggestions-list { position:absolute; top:5rem; background-color:var(--serenity); border:1px solid azure; }
+.suggestion { padding:.5rem 1rem; }
+.suggestion-link { color:var(--white); }
