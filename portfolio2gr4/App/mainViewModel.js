@@ -1,7 +1,7 @@
 ﻿define(['knockout', 'jquery'], function (ko, $) {
 	function viewModel() {
 //OBJECTS:
-		var menuItems = ["Users", "Annotations", "History","Questions",];
+		var menuItems = ["Questions", "Users", "Annotations", "History"];
 		var currentMenu = ko.observable("");
 
 		var currentComponent = ko.observable(menuItems[0]);

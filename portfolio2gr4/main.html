@@ -42,9 +42,8 @@
 				</form>
 
 				<ul class="nav navbar-nav navbar-right" data-bind="foreach: menuItems">
- 
 					<li data-bind="css: {active: $parent.isActive($data)}">
-						<a href="#" data-bind="click: $parent.changeContent($data), text: $data"></a>
+						<a href="#" data-bind="click: $parent.changeContent.bind($data), text: $data"></a>
 					</li>
 				</ul>
 			</div> 

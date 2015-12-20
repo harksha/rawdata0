@@ -3,8 +3,11 @@
 	function viewModel(params) {
 		var self = this; 
 		var currentQuestion = ko.observable(QuesItem);
+		var showSingleQuestion = ko.observable(false);
 		var searchResult = ko.observable([]);
+
 		this.title = "Hello from questions";
+
 		if (typeof params === 'object') {
 			$.getJSON("http://localhost:3133/api/questions/10-1", function (result) {
 				var rez = [];
@@ -23,9 +26,25 @@
 			searchResult(rez);
 		}
 
+		function getSingleQuestion(data) {
+			
+			currentQuestion(data);
+			showSingleQuestion(true);
+			console.log(currentQuestion());
+
+		}
+
+		function goBack() {
+			showSingleQuestion(false);
+		}
+
 		return {
 			title:this.title,
-			searchResult: searchResult
+			searchResult: searchResult,
+			currentQuestion:currentQuestion,
+			showSingleQuestion: showSingleQuestion,
+			getSingleQuestion: getSingleQuestion,
+			goBack:goBack
 		}
 	}
 
