@@ -15,7 +15,8 @@ namespace portfolio2gr4.Controllers
 	public class QuestionsController : BaseApiController
 	{		
 		private QuestionRepository _questionRepository = new QuestionRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		public HttpResponseMessage Get(int size, int page) {
+		public HttpResponseMessage Get(int size=10, int page=1) {
+			page--;
 			var helper = new UrlHelper(Request);
 			if (size > 100) size = 10;
 			int offset = page * size;
@@ -32,7 +33,7 @@ namespace portfolio2gr4.Controllers
 				.CreateResponse(
 				HttpStatusCode.OK,
 				_questionRepository
-				.GetAllQuestions(size, offset)
+				.GetAll(size, offset)
 				.Select(question => ModelFactory.Create(question)))
 				;
 			response.Headers.Add("next-page", next);
@@ -53,10 +54,29 @@ namespace portfolio2gr4.Controllers
 			return _questionRepository.GetByFullTextSearch(searchText_title, "title", 1000, 0).Select(question => ModelFactory.Create(question));
 		}
 
-		public IEnumerable<QuestionModel> GetBySearch(string searchText)
+		public HttpResponseMessage GetBySearch(string searchText, int size=10, int page=1)
 		{
-			var helper = new UrlHelper(Request);// I don't need url helper here 
-			return _questionRepository.GetByFullTextSearch(searchText, "title,body", 10, 0).Select(question => ModelFactory.Create(question));
+			page--;
+			var helper = new UrlHelper(Request);
+			if (size > 100) size = 10;
+			int offset = page * size;
+			int next_page = page;
+			int prev_page = page;
+			//need to count max pages from total results and implement that
+			if (page < 1) { prev_page = 0; } else { prev_page--; }
+			next_page++;
+
+			var prev = helper.Link("QuestionSearchApi", new { size = size, page = prev_page }).ToString();
+			var next = helper.Link("QuestionSearchApi", new { size = size, page = next_page });
+
+			var response = Request
+				.CreateResponse(
+				HttpStatusCode.OK,
+				_questionRepository.GetByFullTextSearch(searchText, "title,body", size, offset).Select(question => ModelFactory.Create(question)));
+            response.Headers.Add("next-page", next);
+			response.Headers.Add("prev-page", prev);
+			return response;
+			
 		}
 		public HttpResponseMessage GetById(int id) {
 			var helper = new UrlHelper(Request);

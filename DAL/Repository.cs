@@ -34,7 +34,7 @@ namespace DAL
 			}
 
 		}
-		
+
 
 		/// <summary>
 		/// To Ionana , I think this method shouold be moved to questions repository class or atleast you should change method name 
@@ -64,13 +64,13 @@ namespace DAL
 			);
 			return DataMapper.Query(new MySqlCommand(sql));
 		}
-		
-		public virtual IEnumerable<T> GetByKeyWords(string key,string column, int limit = 10, int offset = 0)
+
+		public virtual IEnumerable<T> GetByKeyWords(string key, string column, int limit = 10, int offset = 0)
 		{
 			string[] stringSeparators = new string[] { " ", "," };
 			string[] words = key.Split(stringSeparators, StringSplitOptions.None);
 			string[] parsedWords = words.Select(word => "'%" + word + "%'").ToArray();
-			var sqlWhere = "WHERE "+ column + " like " + parsedWords[0];
+			var sqlWhere = "WHERE " + column + " like " + parsedWords[0];
 			var w_list = new List<string>(parsedWords);
 			w_list.RemoveAt(0);// why ?
 			parsedWords = w_list.Select(word => "AND " + column + " like " + word).ToArray();
@@ -107,6 +107,26 @@ namespace DAL
 					offset);
 				return DataMapper.Query(new MySqlCommand(sql));
 			}
+		}
+		public IEnumerable<T> GetAll(int uid, int limit = 10, int offset = 0)
+		{
+			IDataMapper<T> mapper;
+			if (DataMapper == null)
+			{
+				mapper = UpdatableDataMapper;
+			}
+			else
+			{
+				mapper = DataMapper;
+			}
+			var sql = string.Format("SELECT ID, {0} FROM {1} where userId = {4} LIMIT {2} OFFSET {3}",
+				string.Join(", ", mapper.Attributes),
+				mapper.TableName,
+				limit,
+				offset,
+				uid);
+			return mapper.Query(new MySqlCommand(sql));
+
 		}
 
 		public IEnumerable<T> GetByPost(int postid, int limit = 10, int offset = 0)
@@ -178,16 +198,55 @@ namespace DAL
 		/// <returns></returns>
 		public virtual IEnumerable<T> GetByFullTextSearch(string searchText, string columns, int limit = 10, int offset = 0, string orderby = "relevance", string ASC_DESC = "DESC")
 		{
+			IDataMapper<T> mapper;
+			if (DataMapper == null)
+			{
+				mapper = UpdatableDataMapper;
+			}
+			else
+			{
+				mapper = DataMapper;
+			}
 			var condition = "where match (" + columns + ") " + "against( '" + searchText + "') ORDER BY " + orderby + " " + ASC_DESC;
 			var sql = string.Format("SELECT ID, {0}{1} FROM {2} {3} limit {4} offset {5} ",
-				string.Join(", ", DataMapper.Attributes),
+				string.Join(", ", mapper.Attributes),
 				",match (" + columns + ")" + "against ('" + searchText + "') AS relevance",
-				DataMapper.TableName,
+				mapper.TableName,
 				condition,
 				limit,
 				offset
 				);
-			return DataMapper.Query(new MySqlCommand(sql));
+			return mapper.Query(new MySqlCommand(sql));
+		}
+		public IEnumerable<T> GetByKeyWords(string key, string column, int UserID, int limit = 10, int offset = 0)
+		{
+			IDataMapper<T> mapper;
+			if (DataMapper == null)
+			{
+				mapper = UpdatableDataMapper;
+				mapper = (IUpdatableDataMapper<T>)mapper;
+			}
+			else
+			{
+				mapper = DataMapper;
+			}
+			string[] stringSeparators = new string[] { " ", "," };
+			string[] words = key.Split(stringSeparators, StringSplitOptions.None);
+			string[] parsedWords = words.Select(word => "'%" + word + "%'").ToArray();
+			var sqlWhere = "WHERE " + column + " like " + parsedWords[0];
+			var w_list = new List<string>(parsedWords);
+			w_list.RemoveAt(0);
+			parsedWords = w_list.Select(word => "AND " + column + " like " + word).ToArray();
+			var sql = string.Format("SELECT ID, {0} FROM {1} {2} {5} AND userID = {6} LIMIT {3} OFFSET {4}",
+					string.Join(", ", mapper.Attributes),//0
+					mapper.TableName,//1
+					sqlWhere,//2
+					limit,//3
+					offset,//4
+					parsedWords.Length == 0 ? "" : string.Join(" ", parsedWords),//5
+					UserID//6
+			);
+			return mapper.Query(new MySqlCommand(sql));
 		}
 	}
 }

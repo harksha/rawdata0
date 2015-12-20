@@ -24,8 +24,8 @@ namespace DAL.ReadOnly.Tests
 		public void getAllTest()
 		{
 			initilizeTest();
-			int limit = 3;
-			var answers = answerRepository.GetAll(limit);
+			int limit = 1;
+			var answers = answerRepository.GetAll(3,0);
 			Assert.AreEqual(limit, answers.Count());
         }
 
