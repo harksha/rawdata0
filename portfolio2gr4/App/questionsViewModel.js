@@ -56,7 +56,7 @@
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
 			$("body").scrollTop(0);
-			abc = currentQuestion().Url.substring(36);
+			addanno = currentQuestion().Url.substring(36);
 		}
 
 		function getAnswers(id) {
@@ -80,7 +80,7 @@
 		    $.ajax({
 		        type: "POST",
 		        url: "http://localhost:3133/api/annotations",
-		        data: ko.toJSON({ Body: this.Body, PostId: abc }, console.log(abc)),
+		        data: ko.toJSON({ Body: this.Body, PostId: addanno }, console.log(addanno)),
 		        contentType: "application/json; charset=utf-8",
 		        success: function (result) {
 		           // anno.push(new annoItem(result));

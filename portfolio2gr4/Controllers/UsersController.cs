@@ -14,9 +14,9 @@ namespace portfolio2gr4.Controllers
 	public class UsersController : BaseApiController
 	{
 		private UserRepository _userRepository = new UserRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		public HttpResponseMessage Get(int size=10, int page=1)
+		public HttpResponseMessage Get(int size, int page)
 		{
-			page--;
+			
 			var helper = new UrlHelper(Request);
 			if (size > 100) size = 10;
 			int offset = page * size;
