@@ -1,5 +1,7 @@
 ﻿.pagination { }
 
-.question { border:1px solid var(--dark-serenity); color:var(--light-serenity); background-color:var(--serenity); box-sizing: border-box; border-radius: .5rem; margin-bottom :1rem; padding:1rem; }
+.question { border:1px solid var(--snorkel-blue); color:var(--light-serenity); background-color:var(--serenity); box-sizing: border-box; border-radius: .5rem; margin-bottom :1rem; padding:1rem; }
 	.question-title { font-size:2rem; display:block; color:var(--white); }
-.answer { border:1px solid var(--dark-rose); background-color:var(--rose-quartz); padding:1rem .5rem; margin-bottom:1rem; }
+	.question-title:hover { color:var(--snorkel-blue); }
+.comment { background-color:var(--limpet-shell); padding:1rem; }
+.answer { border:1px solid var(--peach-echo); background-color:var(--rose-quartz); padding:1rem .5rem; margin-bottom:1rem; }

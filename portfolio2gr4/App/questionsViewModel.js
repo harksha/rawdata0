@@ -6,6 +6,7 @@
 		var showSingleQuestion = ko.observable(false);
 		var searchResult = ko.observable([]);
 		var answers = ko.observable([]);
+		var comments = ko.observable([]);
 		var currentPage = ko.observable("http://localhost:3133/api/questions/10-0");
 		var nextPage = ko.observable("");
 		var prevPage = ko.observable("");
@@ -55,9 +56,25 @@
 			currentQuestion(data);
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
+			getQuestionComments(currentQuestion().Id);
+
+			$(".questions").addClass("col-sm-6");
 			var top = $(".single-question").offset().top;
 			 $("body").scrollTop(top);
 			addanno = currentQuestion().Url.substring(36);
+		}
+		
+		function getQuestionComments(id) {
+			$.getJSON("api/questions/"+id+"/comments" , function (result) {
+				var commms = [];
+				if (result.length > 0){
+					for (var i = 0; i < result.length; i++) {
+						console.log(result[i]);
+					}
+					
+				}
+			});
+
 		}
 
 		function getAnswers(id) {
@@ -75,6 +92,7 @@
 
 		function goBack() {
 			showSingleQuestion(false);
+			$(".questions").removeClass("col-sm-6");
 		}
 
 		AddData = function () {
@@ -100,10 +118,11 @@
 			getSingleQuestion: getSingleQuestion,
 			goBack: goBack,
 			answers: answers,
+			comments:comments,
 			getPrevPage: getPrevPage,
 			getNextPage: getNextPage,
 			Body: Body,
-			AddData: AddData,
+			AddData: AddData
 		}
 	}
 
@@ -126,6 +145,9 @@
 		self.Id = data.Url.substring(20);
 	};
 
-	
+	function CommmentItem(data){
+		var self=this;
+	};
+
 	return viewModel;
 });
