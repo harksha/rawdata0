@@ -9,6 +9,7 @@
 		var currentPage = ko.observable("http://localhost:3133/api/questions/10-0");
 		var nextPage = ko.observable("");
 		var prevPage = ko.observable("");
+	    Body = ko.observable(""),
 
 		this.title = "Hello from questions";
 
@@ -55,6 +56,7 @@
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
 			$("body").scrollTop(0);
+			abc = currentQuestion().Url.substring(36);
 		}
 
 		function getAnswers(id) {
@@ -73,7 +75,22 @@
 		function goBack() {
 			showSingleQuestion(false);
 		}
+		AddData = function () {
 
+		    $.ajax({
+		        type: "POST",
+		        url: "http://localhost:3133/api/annotations",
+		        data: ko.toJSON({ Body: this.Body, PostId: abc }, console.log(abc)),
+		        contentType: "application/json; charset=utf-8",
+		        success: function (result) {
+		           // anno.push(new annoItem(result));
+		            alert("Annotation Added");
+		        },
+		        error: function (err) {
+		            alert(err.status + " - " + err.statusText);
+		        }
+		    });
+		};
 		return {
 			title:this.title,
 			searchResult: searchResult,
@@ -83,7 +100,9 @@
 			goBack: goBack,
 			answers: answers,
 			getPrevPage: getPrevPage,
-			getNextPage:getNextPage
+			getNextPage: getNextPage,
+			Body: Body,
+			AddData: AddData,
 		}
 	}
 
@@ -105,6 +124,7 @@
 		self.Score = data.score;
 		self.Id = data.Url.substring(20);
 	};
+
 	
 	return viewModel;
 });
