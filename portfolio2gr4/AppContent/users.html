@@ -5,6 +5,7 @@
             <h2>Users: Search Result</h2>
         </div>
     </div>
+
     <div class="row">
         <div class="col-sm-10" data-bind="foreach:searchResult">
             <div class="search-content">
@@ -16,6 +17,7 @@
                     <small class="text-muted">CreationDate :<span data-bind="text:CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
                 </h4>
             </div>
+ 
         </div>
     </div>
     <div data-bind="visible:!searchResult().length" class="col-sm-12">

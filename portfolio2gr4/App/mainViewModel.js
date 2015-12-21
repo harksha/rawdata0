@@ -1,4 +1,4 @@
-﻿define(['knockout', 'jquery'], function (ko, $) {
+﻿define(['knockout', 'jquery','knockout.validation'], function (ko, $, validation) {
 	function viewModel() {
 	    //OBJECTS:
 	    var page = ko.observable(1);
@@ -12,10 +12,13 @@
 				},
 				viewData = ko.observable([]);
 		//SEARCH:
-		var searchText = ko.observable("");
+		var searchText = ko.observable("").extend({
+			required: true,
+			minLength: 3
+		});
 		var suggestions = ko.observableArray([]);// for searchbar
 		var searchResult = ko.observableArray([]);// for page body
-
+		var showSuggestions = ko.observable(false);
 
 //UTIL FUNCTIONS:
 		isActive = function (menu) { 
@@ -23,6 +26,7 @@
 		};
         // this function provide suggestions for search bar
 		var getSuggestions = function (target, event) {
+<<<<<<< HEAD
 		    switch (currentMenu()) {
 		        case "Users":
 		            alert(currentMenu());
@@ -158,6 +162,64 @@
 		            $("#search_textbox").attr("list", "history_suggestionsList");
 		            break;
 		    }
+=======
+			switch (currentComponent()) {
+				case "Users":
+					//not implemented yet
+					break;
+				case "Annotations":
+					//not implemented yet
+					break;
+				case "Questions":
+					if (searchText.isValid()) {
+						//console.log('tg', target);
+						
+						$.getJSON("api/questions/search_title/" +searchText()+ "-10-1", function (result) {
+							console.log(result);
+							if (result.length >= 1) {
+								
+								showSuggestions(true);
+								var titles = $.map(result, function (q) {
+									return { Title: q.Title, Url: q.Url };
+								});
+								suggestions(titles);
+							}
+						});
+
+					}
+					
+					
+					break;
+				case "History":
+					//not implemented yet
+					break;
+			}
+		};
+		var searchFor = function (target, event) { 
+			switch (currentComponent()) {
+				case "Users":
+					//not implemented yet
+					break;
+				case "Annotations":
+					//not implemented yet
+					break;
+				case "Questions":
+					console.log(searchText());
+					$.getJSON("api/questions/search/" + searchText(), function (result) {
+						if (result.length >= 1) {
+							searchResult(result);
+							viewData(searchResult);
+							changeContent("Questions");
+						} else {
+							console.log("no result found!");
+						}
+					});
+					break;
+				case "History":
+					//not implemented yet
+					break;
+			}
+>>>>>>> 386289be8cbb883db8a9a8ce21cc000ed91bbc49
 		};
 
 		return {
@@ -170,6 +232,7 @@
 			searchText: searchText,
 			suggestions: suggestions,
 			getSuggestions: getSuggestions,
+			showSuggestions:showSuggestions,
 			searchFor: searchFor,
 			searchResult: searchResult
 			 
