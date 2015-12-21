@@ -20,7 +20,16 @@ namespace DAL.Rewrittable
 			return new Vote { };
 		}
 
-		public override int Insert(Vote vote) { throw new NotImplementedException("not supported in this project"); }
+		public override int Insert(Vote vote) {
+			var sql = string.Format("insert into {0} ({1}) values({2})",
+				TableName, AttributeList, DecoratedAttributeList(x => "@" + x));
+			var cmd = new MySqlCommand(sql);
+			cmd.Parameters.AddWithValue("@" + Attributes[0], vote.PostId);
+			cmd.Parameters.AddWithValue("@" + Attributes[1], vote.VoteType);
+			cmd.Parameters.AddWithValue("@" + Attributes[2], vote.Date);
+			cmd.Parameters.AddWithValue("@" + Attributes[3], vote.UserId);
+			return ExecuteNonQuery(cmd);
+		}
 		public override int Update(Vote vote) { throw new NotImplementedException("not supported in this project"); }
 
 		public override Vote Map(MySqlDataReader reader)

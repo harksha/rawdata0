@@ -7,7 +7,7 @@ namespace portfolio2gr4.Models
 {
 	public class VoteModel
 	{
-		public int Id { get; set; }
+		public string Url { get; set; }
 		public int VoteType { get; set; }
 		public DateTime Date { get; set; }
 		public int UserId { get; set; }
