@@ -26,7 +26,7 @@ namespace WebService.Models
 		{
 			return new UserModel
 			{
-				Url = _urlHelper.Link("UserApi", new { Id = user.Id }), //HERE
+				Url = _urlHelper.Link("UserByIdApi", new { Id = user.Id }), //HERE
 				Name = user.Name,
 				WebsiteUrl = user.WebsiteUrl,
 				Reputation = user.Reputation,
@@ -70,7 +70,7 @@ namespace WebService.Models
 		{
 			return new AnswerModel
 			{
-				Url = _urlHelper.Link("AnswerApi", new { id = answer.Id }),
+				Url = _urlHelper.Link("AnswerByIdApi", new { id = answer.Id }),
 				Body = answer.Body,
 				Score = answer.Score,
 				CreationDate = answer.CreationDate,
@@ -97,7 +97,7 @@ namespace WebService.Models
 		{
 			return new PostModel
 			{
-				Url = _urlHelper.Link("PostApi", new { id = post.Id }),
+				Url = _urlHelper.Link("PostByIdApi", new { id = post.Id }),
 				Body = post.Body,
 				Score = post.Score
 			};
@@ -126,10 +126,10 @@ namespace WebService.Models
 		{
 			return new AnnotationModel
 			{
-				Url = _urlHelper.Link("AnnotationApi", new { id = annotation.Id }),
+				Url = _urlHelper.Link("AnnotationByIdApi", new { id = annotation.Id }),
 				Body = annotation.Body,
 				Date = annotation.Date,
-				UserId = annotation.PostId,
+				UserId = annotation.UserId,
 				PostId = annotation.PostId
 
 			};
@@ -160,7 +160,7 @@ namespace WebService.Models
 		{
 			return new HistoryModel
 			{
-				Url = _urlHelper.Link("HistoryApi", new { id = history.Id }),
+				Url = _urlHelper.Link("HistoryByIdApi", new { id = history.Id }),
 				Body = history.Body,
 				Date = history.Date,
 				UserId = history.UserId

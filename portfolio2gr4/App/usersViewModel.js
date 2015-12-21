@@ -2,8 +2,11 @@
 
     function viewModel(params) {
         var self = this;
-        //var currentQuestion = ko.observable(QuesItem);
+        var currentUser = ko.observable(UsersItem);
+        var showSingleUser = ko.observable(false);
         var searchResult = ko.observable([]);
+
+
         this.title = "Users";
         if (typeof params === 'object') {
             $.getJSON("http://localhost:3133/api/users", function (result) {
@@ -22,10 +25,24 @@
             }
             searchResult(rez);
         }
+        function getSingleUser(data) {
 
+            currentUser(data);
+            showSingleUser(true);
+            console.log(currentUser());
+
+        }
+
+        function goBack() {
+            showSingleUser(false);
+        }
         return {
             title: this.title,
-            searchResult: searchResult
+            searchResult: searchResult,
+            currentUser: currentUser,
+            showSingleUser: showSingleUser,
+            getSingleUser: getSingleUser,
+            goBack: goBack
         }
     }
     function UsersItem(data) {
