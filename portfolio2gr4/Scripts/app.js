@@ -22,6 +22,11 @@ require(['knockout'], function (ko) {
 		viewModel: { require: 'App/annotationsViewModel' },
 		template: { require: 'Scripts/text!AppContent/annotations.html' }
 	});
+
+	ko.components.register('Home', {
+		viewModel: { require: 'App/mainViewModel' },
+		template: { require: 'Scripts/text!AppContent/frontpage.html' }
+	});
 	ko.components.register('app', {
 		viewModel: { require: 'App/mainViewModel'},
 		template: { require: 'Scripts/text!main.html' }

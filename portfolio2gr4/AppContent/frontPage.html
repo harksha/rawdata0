@@ -1,0 +1,20 @@
+﻿<div class="login-container" data-bind="visible:!isLoggedIn()">
+	<h2 class="text-center">Login</h2>
+
+	<p class="text-center">This is a fake login page for testing purposes, just add a user id below</p>
+
+	<form class="col-xs-12 col-sm-6 col-sm-offset-3">
+		<div class="form-group">
+			<label for="userid">User Id:</label>
+			<input type="text" class="form-control" id="userid" placeholder="user id" data-bind="textInput:userId">
+		</div>
+		<button class="btn btn-success text-right" data-bind="click:storeUserId.bind()">Submit</button>
+	</form>
+</div>
+
+<div class="personal-container col-sm-12" data-bind="visible:isLoggedIn()">
+	<button class="btn btn-danger" data-bind="click:logOut()">Log Out</button>
+	<h2>Hi, <span data-bind="text:currentUser().Name"></span></h2>
+	<h3>Location: <span data-bind="text:currentUser().Location"></span></h3>
+	<h3>Your account was created on: <span data-bind="text:currentUser().CreationDate"></span></h3>
+</div>

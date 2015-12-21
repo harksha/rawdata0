@@ -1,7 +1,7 @@
 ﻿define(['knockout', 'jquery', 'knockout.validation'], function (ko, $, validation) {
 	function viewModel() {
 		//OBJECTS:
-		var menuItems = ["Questions", "Users", "Annotations", "History"];
+		var menuItems = ["Home","Questions", "Users", "Annotations", "History"];
 		var currentMenu = ko.observable("");
 
 		var currentComponent = ko.observable(menuItems[0]);
@@ -17,6 +17,10 @@
 		var suggestions = ko.observableArray([]);// for searchbar
 		var searchResult = ko.observableArray([]);// for page body
 		var showSuggestions = ko.observable(false);
+
+		var currentUser = ko.observable(UsersItem);
+		var isLoggedIn = ko.observable(false);
+		var userId = ko.observable("");
 
 		//UTIL FUNCTIONS:
 		isActive = function (menu) {
@@ -76,6 +80,39 @@
 			}
 		};
 
+		function checkLogIn() {
+			if (localStorage.userId) {
+				userId(localStorage.userId);
+				isLoggedIn = ko.observable(true);
+				getCurrentUser();
+
+			}
+			else { isLoggedIn = ko.observable(false); }
+		}
+
+		checkLogIn();
+
+		function storeUserId() { 
+			isLoggedIn(true);
+			localStorage.setItem("userId", userId());
+			getCurrentUser();
+
+		}
+
+		function getCurrentUser() {
+			$.getJSON("api/users/" + userId(), function (result) {
+				if (result) {
+					currentUser(new UsersItem(result));
+				}
+			});
+		}
+
+		function logOut() {
+			localStorage.removeItem("userId");
+			userId("");
+			isLoggedIn(false);
+		}
+
 		return {
 			currentComponent: currentComponent,
 			changeContent: changeContent,
@@ -88,9 +125,23 @@
 			getSuggestions: getSuggestions,
 			showSuggestions: showSuggestions,
 			searchFor: searchFor,
-			searchResult: searchResult
+			searchResult: searchResult,
+			userId: userId,
+			storeUserId: storeUserId,
+			isLoggedIn: isLoggedIn,
+			logOut:logOut,
+			currentUser:currentUser
 
 		}
+	};
+
+	function UsersItem(data) {
+		var self = this;
+		self.Url = data.Url;
+		self.CreationDate = data.CreationDate;
+		self.Name = data.Name;
+		self.Location = data.Location;
+
 	};
 
 	return viewModel;
