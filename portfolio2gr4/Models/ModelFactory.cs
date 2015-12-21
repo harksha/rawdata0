@@ -70,7 +70,7 @@ namespace WebService.Models
 		{
 			return new AnswerModel
 			{
-				Url = _urlHelper.Link("AnswerByIdApi", new { id = answer.Id }),
+				Url = _urlHelper.Link("AnswerApi", new { id = answer.Id }),
 				Body = answer.Body,
 				Score = answer.Score,
 				CreationDate = answer.CreationDate,

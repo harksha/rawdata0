@@ -15,8 +15,8 @@ namespace portfolio2gr4.Controllers
 	public class QuestionsController : BaseApiController
 	{		
 		private QuestionRepository _questionRepository = new QuestionRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		public HttpResponseMessage Get(int size=10, int page=1) {
-			page--;
+		public HttpResponseMessage Get(int size, int page)
+		{
 			var helper = new UrlHelper(Request);
 			if (size > 100) size = 10;
 			int offset = page * size;
@@ -27,13 +27,13 @@ namespace portfolio2gr4.Controllers
 			next_page++;
 
 			var prev = helper.Link("QuestionApi", new { size = size, page = prev_page }).ToString();
-			var next = helper.Link("QuestionApi", new { size=size, page=next_page  });
+			var next = helper.Link("QuestionApi", new { size = size, page = next_page });
 
-			var response =  Request
+			var response = Request
 				.CreateResponse(
 				HttpStatusCode.OK,
 				_questionRepository
-				.GetAll(size, offset)
+				.GetAllQuestions(size, offset)
 				.Select(question => ModelFactory.Create(question)))
 				;
 			response.Headers.Add("next-page", next);

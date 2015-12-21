@@ -1,36 +1,56 @@
 ﻿<div class="question-view">
 	<h2 data-bind="text: title"></h2>
 	<!--data-bind="visible:!showSingleQuestion()"--> 
-	<div class="col-xs-12 col-sm-8" >
-		<div data-bind="visible:searchResult.length" >
-			<div class="page-header text-muted">
-				<h2>Questions Results</h2>
-			</div>
-		</div>
+	<div class="col-xs-12 col-sm-6" >
 
-		<div class="col-xs-12" data-bind="foreach:searchResult">
-			<div class="search-content">
-				<a data-bind="click:$parent.getSingleQuestion.bind($data)"><h3 data-bind="text:Title"></h3></a>
-				<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-					<small class="text-muted">CreationDate :<span data-bind="text:CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
-				</h4>
+		<div data-bind="visible:searchResult().length">
+			<!--<div class="page-header text-muted">
+				<h2>Questions Results</h2>
+			</div>-->
+			<div class="pagination">
+				<button type="button" class="btn btn-primary prev-page" data-bind="click:getPrevPage()">Prev Page</button>
+				<button type="button" class="btn btn-primary next-page" data-bind="click:getNextPage()">Next Page</button>
 			</div>
-		</div>
+			<div class="question-list" data-bind="foreach:searchResult">
+				<div class="search-content">
+					<a data-bind="click:$parent.getSingleQuestion.bind($data)"><h3 data-bind="text:Title"></h3></a>
+						<small class="text-muted">CreationDate :<span data-bind="text:CreationDate"></span> 
+					</h4>
+				</div>
+			</div>
+
+
+		</div> 
 
 		<div data-bind="visible:!searchResult().length" class="col-sm-12">
 			NO RESULTS
 		</div>
 	</div>
-	<div data-bind="visible:showSingleQuestion,css: { showSingle: showSingleQuestion }" class="single-question col-xs-12 col-sm-4">
+
+
+	<div data-bind="visible:showSingleQuestion,css: { showSingle: showSingleQuestion }" class="single-question col-xs-12 col-sm-6">
 		<a data-bind="click:goBack">Go back</a>
 		Single Question
 		<h3 data-bind="text:currentQuestion().Title"> </h3> 
-		<h3 data-bind="text:currentQuestion().Id"> </h3> 
 		<h4><span class="label label-default" data-bind="text:currentQuestion().Owner"></span></h4><h4>
 			 <span data-bind="text: currentQuestion().CreationDate"></span> 
 		</h4>
 		<p data-bind="html:currentQuestion().Body"> </p> 
 
+		<div class="col-xs-12 col-sm-8 col-sm-offset-2">
+
+			<div data-bind="visible:!answers().length">
+				<h3>Sorry, no answers were found :(.</h3>
+			</div>
+
+			<div data-bind="visible:answers().length>0">
+				<div class="answers" data-bind="foreach:answers">
+					<div class="answer-body"  data-bind="html:Body"></div>
+					<div class="answer-date" data-bind="text:CreationDate"></div>
+				</div>
+			</div>
+		</div>
+		
 		<!--<div id="comments-foreach">
 			<div id="comment-body"></div>
 			<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>

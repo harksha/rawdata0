@@ -36,7 +36,6 @@
 						$.getJSON("api/questions/search_title/" + searchText() + "-10-1", function (result) {
 							console.log(result);
 							if (result.length >= 1) {
-
 								showSuggestions(true);
 								var titles = $.map(result, function (q) {
 									return { Title: q.Title, Url: q.Url };

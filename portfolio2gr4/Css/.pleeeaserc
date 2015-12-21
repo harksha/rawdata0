@@ -3,6 +3,7 @@
 		"dev/variables.css",
 		"dev/global.css",
 		"dev/header.css",
+		"dev/questions.css",
 		"dev/search.css"
 	],
 	"out": "styles.css",
