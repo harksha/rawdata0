@@ -42,7 +42,7 @@ namespace portfolio2gr4
 			);
 			config.Routes.MapHttpRoute(
 				name: "QuestionSearchTitle",
-				routeTemplate: "api/questions/search_title/{searchText_title}-{size}-{page}",
+				routeTemplate: "api/questions/search_title/{searchText_title}",
 				defaults: new { controller = "Questions" }
 			);
 			config.Routes.MapHttpRoute(

@@ -17,6 +17,7 @@ require(['knockout'], function (ko) {
 		template: { require: 'Scripts/text!AppContent/history.html' }
 	});
 
+
 	ko.components.register('Annotations', {
 		viewModel: { require: 'App/annotationsViewModel' },
 		template: { require: 'Scripts/text!AppContent/annotations.html' }

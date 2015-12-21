@@ -51,7 +51,7 @@ namespace portfolio2gr4.Controllers
 		public IEnumerable<QuestionModel> GetBySearchTitle(string searchText_title)
 		{
 			var helper = new UrlHelper(Request);// I don't need url helper here 
-			return _questionRepository.GetByFullTextSearch(searchText_title, "title", 1000, 0).Select(question => ModelFactory.Create(question));
+			return _questionRepository.GetByFullTextSearch(searchText_title, "title", 10, 0).Select(question => ModelFactory.Create(question));
 		}
 
 		public HttpResponseMessage GetBySearch(string searchText, int size=10, int page=1)

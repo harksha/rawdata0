@@ -158,14 +158,13 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\knockout-3.4.0.debug.js" />
     <Content Include="Scripts\knockout-3.4.0.js" />
+
     <Content Include="App\search.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
     <Content Include="Scripts\r.js" />
     <Content Include="Scripts\require.config.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
-    <Content Include="Scripts\typeahead.bundle.js" />
-    <Content Include="Scripts\typeahead.js" />
     <Content Include="search.css" />
     <Content Include="search.html" />
     <Content Include="styles.css" />
