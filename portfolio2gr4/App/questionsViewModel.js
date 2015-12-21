@@ -55,6 +55,7 @@
 		self.Body = data.Body;
 		self.Title = data.Title;
 		self.Owner = data.Owner;
+		self.Id = data.Url.substring(36);
 	};
 	
 	return viewModel;
