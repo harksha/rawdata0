@@ -49,10 +49,3 @@ small.text-muted {
     font-family: courier,courier-new,monospace;
 }
 
-.search-content {
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    border-radius: .5rem;
-	margin-bottom:1rem;
-	padding:0 1rem;
-}

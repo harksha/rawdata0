@@ -14,10 +14,22 @@
 
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group">
+					<div class="form-group col-xs-8">
 						<input type="text" class="form-control" placeholder="Search" data-bind="textInput:searchText, event: {input:getSuggestions}">
 					</div>
-					<button type="button" class="btn btn-default" data-bind="click:searchFor">Submit</button>
+					<button type="button" class="btn btn-default col-xs-2" data-bind="click:searchFor">Submit</button>
+					<div class="dropdown search-dd col-xs-2">
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+							Choose
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+						</ul>
+					</div>
+
 					<div class="questions-suggestions" data-bind="visible:showSuggestions">
 						<ul class="suggestions-list col-xs-12 col-sm-6" data-bind="foreach: suggestions">
 							<li class="suggestion">

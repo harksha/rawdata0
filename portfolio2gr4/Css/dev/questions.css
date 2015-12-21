@@ -1,1 +1,5 @@
 ﻿.pagination { }
+
+.question { border:1px solid var(--dark-serenity); color:var(--light-serenity); background-color:var(--serenity); box-sizing: border-box; border-radius: .5rem; margin-bottom :1rem; padding:1rem; }
+	.question-title { font-size:2rem; display:block; color:var(--white); }
+.answer { border:1px solid var(--dark-rose); background-color:var(--rose-quartz); padding:1rem .5rem; margin-bottom:1rem; }

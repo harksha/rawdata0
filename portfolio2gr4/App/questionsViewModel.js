@@ -55,7 +55,8 @@
 			currentQuestion(data);
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
-			$("body").scrollTop(0);
+			var top = $(".single-question").offset().top;
+			 $("body").scrollTop(top);
 			addanno = currentQuestion().Url.substring(36);
 		}
 
@@ -75,21 +76,21 @@
 		function goBack() {
 			showSingleQuestion(false);
 		}
-		AddData = function () {
 
-		    $.ajax({
-		        type: "POST",
-		        url: "http://localhost:3133/api/annotations",
-		        data: ko.toJSON({ Body: this.Body, PostId: addanno }, console.log(addanno)),
-		        contentType: "application/json; charset=utf-8",
-		        success: function (result) {
-		           // anno.push(new annoItem(result));
-		            alert("Annotation Added");
-		        },
-		        error: function (err) {
-		            alert(err.status + " - " + err.statusText);
-		        }
-		    });
+		AddData = function () {
+			$.ajax({
+				type: "POST",
+				url: "http://localhost:3133/api/annotations",
+				data: ko.toJSON({ Body: this.Body, PostId: addanno }, console.log(addanno)),
+				contentType: "application/json; charset=utf-8",
+				success: function (result) {
+					// anno.push(new annoItem(result));
+					alert("Annotation Added");
+				},
+				error: function (err) {
+					alert(err.status + " - " + err.statusText);
+				}
+			});
 		};
 		return {
 			title:this.title,
