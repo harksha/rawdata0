@@ -34,8 +34,8 @@
 				case "Questions":
 					if (searchText.isValid()) {
 						//console.log('tg', target);
-						
-						$.getJSON("api/questions/search_title/" +searchText()+ "-10-1", function (result) {
+						//+"-10-1"
+						$.getJSON("api/questions/search_title/" +searchText() , function (result) {
 							console.log(result);
 							if (result.length >= 1) {
 								
