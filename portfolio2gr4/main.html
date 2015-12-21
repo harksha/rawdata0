@@ -26,7 +26,6 @@
 							</li>
 						</ul>
 					</div>
-					 
 				</form>
 
 				<ul class="nav navbar-nav navbar-right" data-bind="foreach: menuItems">
@@ -51,15 +50,7 @@
 
 
 
-<!--<script type="text/html" id="users_view">
-	<h2>Users</h2>
-	<div data-bind="foreach: navigationViewModel.users">
-		<div data-bind="text: Url"></div>
-		<div data-bind="text: CreationDate"></div>
-		<div data-bind="text: Location"></div>
-		<div data-bind="text: Name"></div>
-	</div>
-</script>
+<!-- 
 <script type="text/html" id="annotations_view">
 	<h2>Annotation</h2>
 	<input type="checkbox" data-bind="checked: navigationViewModel.showList" />
@@ -83,76 +74,6 @@
 		<div data-bind="text: userId"></div>
 	</div>
 </script>-->
-
-<!--
-<script type="text/html" id="questions_view">
-	<h2>Questions</h2>
-	<div data-bind="foreach: navigationViewModel.questions">
-		<div data-bind="text: Url"></div>
-		<div data-bind="text: CreationDate"></div>
-		<div data-bind="text: Body"></div>
-		<div><a data-bind="text:Title, attr:{href:Url}"></a></div>
-	</div>
-</script>-->
-
-<!--<script type="text/html" id="questions_search_view">
-	<div class="col-sm-12">
-		<div class="page-header text-muted">
-			<h2>Questions: Search Result</h2>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-10" data-bind="foreach: searchViewModel.searchResult">
-			<div class="search-content">
-				<a data-bind="attr:{href:Url}"><h3 data-bind="text:Title"></h3></a>
-				<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-					<small class="text-muted">CreationDate :<span data-bind="text:CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
-				</h4>
-			</div>
-		</div>
-	</div>
-</script>
-<script type="text/html" id="questions_view">
-	<div class="col-sm-12">
-		<div class="page-header text-muted">
-			<h2>Questions</h2>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-10" data-bind="foreach: navigationViewModel.questions">
-			<div class="search-content">
-				<a data-bind="attr:{href:Url}"><h3 data-bind="text:Title"></h3></a>
-				<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-					<small class="text-muted"><span data-bind="text: CreationDate"></span> • <a data-bind="attr:{href:Url}" class="text-muted">Read More</a></small>
-				</h4>
-			</div>
-		</div>
-	</div>
-</script>
-
-<script type="text/html" id="question_view">
-	<div class="row">
-		<div id="question-related">
-			<h3>question title</h3>
-			<section>question body</section>
-			<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-				<small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-			</h4>
-			<div id="comments-foreach">
-				<div id="comment-body"></div>
-				<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-					<small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-				</h4>
-			</div>
-			<div id="Answer-foreach">
-				<div id="Answer-body"></div>
-				<h4><span class="label label-default" data-bind="text:Owner"></span></h4><h4>
-					<small class="text-muted"><span data-bind="text: CreationDate"></span></small>
-				</h4>
-			</div>
-		</div>
-
-	</div>
-</script>-->
+  
 
 <footer></footer>
