@@ -12,7 +12,7 @@
 		//SEARCH:
 		var searchText = ko.observable("").extend({
 			required: true,
-			minLength: 3,
+			minLength: 3
 		});
 		var suggestions = ko.observableArray([]);// for searchbar
 		var searchResult = ko.observableArray([]);// for page body
@@ -32,18 +32,24 @@
 					//not implemented yet
 					break;
 				case "Questions":
+					if (searchText.isValid()) {
+						//console.log('tg', target);
+						
+						$.getJSON("api/questions/search_title/" +searchText()+ "-10-1", function (result) {
+							console.log(result);
+							if (result.length >= 1) {
+								
+								showSuggestions(true);
+								var titles = $.map(result, function (q) {
+									return { Title: q.Title, Url: q.Url };
+								});
+								suggestions(titles);
+							}
+						});
+
+					}
 					
-					console.log('tg', target);
-					console.log('eve', event);
-					$.getJSON("api/questions/search_title/" + searchText(), function (result) {
-						if (result.length >= 1) {
-							showSuggestions(true);
-							var titles = $.map(result, function (q) {
-								return { Title: q.Title, Url: q.Url };
-							});
-							suggestions(titles);
-						}
-					});
+					
 					break;
 				case "History":
 					//not implemented yet

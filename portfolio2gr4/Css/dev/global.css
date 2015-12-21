@@ -3,6 +3,9 @@ body {
 	font-family:var(--main-font);
 }
 a { cursor:pointer; }
-.main-container { top:0; position:relative; display:block; width:90%; margin:0 auto; }
-.validationMessage { position:absolute; top:5rem; left:1rem; background-color:var(--white); transition:display .5s; }
-.validation-box { position:absolute; top:5rem; background-color:var(--white); transition:display .5s; border:1px solid var(--red); }
+.main-container { top:0; position:relative; display:block; width:95%; margin:0 auto; }
+.validationMessage { position:absolute; top:5rem; left:10rem; padding:1rem; background-color:var(--white); transition:display .5s; border:1px solid var(--red); }
+
+
+.single-question {  }
+ 
