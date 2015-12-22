@@ -2,14 +2,19 @@
 	function viewModel() {
 		//OBJECTS:
 		var menuItems = ["Home","Questions", "Users", "Annotations", "History"];
-		var currentMenu = ko.observable("");
+		var searchOptions = ["Questions", "Users", "Annotation"];
+		var searchOption = ko.observable("Choose");
 
 		var currentComponent = ko.observable(menuItems[0]);
 		var changeContent = function (component) {
 			currentComponent(component);
 		},
 				viewData = ko.observable([]);
-		//SEARCH:
+		
+		var changeSearchOption = function (option) {
+			searchOption(option);
+		};
+
 		var searchText = ko.observable("").extend({
 			required: true,
 			minLength: 3
@@ -28,7 +33,7 @@
 		};
 
 		var getSuggestions = function (target, event) {
-			switch (currentComponent()) {
+			switch (searchOption()) {
 				case "Users":
 					//not implemented yet
 					break;
@@ -55,7 +60,7 @@
 			}
 		};
 		var searchFor = function (target, event) {
-			switch (currentComponent()) {
+			switch (searchOption()) {
 				case "Users":
 					//not implemented yet
 					break;
@@ -116,8 +121,7 @@
 		return {
 			currentComponent: currentComponent,
 			changeContent: changeContent,
-			viewData: viewData,
-			currentMenu: currentMenu,
+			viewData: viewData, 
 			menuItems: menuItems,
 			isActive: isActive,
 			searchText: searchText,
@@ -130,7 +134,10 @@
 			storeUserId: storeUserId,
 			isLoggedIn: isLoggedIn,
 			logOut:logOut,
-			currentUser:currentUser
+			currentUser: currentUser,
+			searchOptions:searchOptions,
+			searchOption: searchOption,
+			changeSearchOption:changeSearchOption
 
 		}
 	};

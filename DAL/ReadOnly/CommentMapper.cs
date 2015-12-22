@@ -39,20 +39,22 @@ namespace DAL.ReadOnly
 			{
 				
 				string a_body;
-				DateTime a_date;
+				string a_date;
+				string a_id;
 
-
-				
+				if (!reader.IsDBNull(0)) { a_body = reader.GetString(0); }
+				else { a_id = "unknown"; }
 				if (!reader.IsDBNull(1)) { a_body = reader.GetString(1); }
 				else { a_body = "unknown"; }
-				if (!reader.IsDBNull(2)) { a_date = reader.GetDateTime(2); }
-				else { a_date = DateTime.Now; }
+				if (!reader.IsDBNull(2)) { a_date = reader.GetString(2); }
+				else { a_date = "unknown"; }
 				
 				var comment = new Comment
 				{
 					
 					Text = a_body,
-					CreationDate = a_date,
+					CreationDate = a_date
+
 
 			
 

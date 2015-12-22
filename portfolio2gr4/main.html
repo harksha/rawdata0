@@ -19,14 +19,12 @@
 					</div>
 					<button type="button" class="btn btn-default col-xs-2" data-bind="click:searchFor">Submit</button>
 					<div class="dropdown search-dd col-xs-2">
-						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-							Choose
+						<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-bind="text:searchOption()">
+							
 							<span class="caret"></span>
 						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-							<li><a href="#">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" data-bind="foreach:searchOptions">
+							<li><a href="" data-bind="click: $parent.changeSearchOption.bind($data),text:$data"></a></li> 
 						</ul>
 					</div>
 
