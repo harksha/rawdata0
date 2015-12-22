@@ -52,14 +52,16 @@
 		function getSingleUser(data) {
 			currentUser(data);
 			showSingleUser(true);
-			$("body").scrollTop(0);
-			//abc = currentQuestion().Url.substring(36);
+			$(".users").addClass("col-sm-6");
+			var top = $(".single-question").offset().top;
+			$("body").scrollTop(top); 
 		}
 
         
 
 		function goBack() {
 			showSingleUser(false);
+			$(".users").removeClass("col-sm-6");
 		}
        
 		return {

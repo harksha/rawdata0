@@ -40,7 +40,7 @@
 			<button class="btn btn-warning" data-toggle="modal" data-target="#annotationEditModal" type="submit" data-bind="visible:annotationExist()">Edit Annotation</button>
 			<button class="btn btn-primary" data-toggle="modal" data-target="#annotationViewModal" type="submit" data-bind="visible:annotationExist()">View Annotation</button>
 
-			<div class="modal fade anno-modal" id="annotationAddModal" tabindex="-1" role="dialog">
+			<div class="modal fade anno-modal add" id="annotationAddModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -57,35 +57,35 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-			<div class="modal fade anno-modal" id="annotationEditModal" tabindex="-1" role="dialog">
+			<div class="modal fade anno-modal edit" id="annotationEditModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Add your annotation here:</h4>
+							<h4 class="modal-title">Edit your annotation here:</h4>
 						</div>
 						<div class="modal-body">
-							<textarea class="annotation-input" data-bind="value:annotation.Body, text:annotation.Body" placeholder="Add Annotation"></textarea>
+							<textarea class="annotation-input" data-bind="value:annotation().Body, text:annotation().Body"></textarea>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" data-bind="click:editAnnotationData()">Save changes</button>
+							<button type="button" class="btn btn-primary" data-bind="click:editAnnotationData.bind()">Save changes</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-			<div class="modal fade anno-modal" id="annotationViewModal" tabindex="-1" role="dialog">
+			<div class="modal fade anno-modal view" id="annotationViewModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Add your annotation here:</h4>
+							<h4 class="modal-title">Your annotation:</h4>
 						</div>
 						<div class="modal-body">
-							<textarea class="annotation-input" data-bind="value:Body, text:Body" placeholder="Add Annotation"></textarea>
+							<div class="annotation-display" data-bind="html:annotation().Body">
+							</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" data-bind="click:AddData">Save changes</button>
 						</div>
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal-dialog -->

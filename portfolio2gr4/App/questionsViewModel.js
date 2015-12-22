@@ -116,18 +116,22 @@
 
 		function getAnnotation(uid, pid) {
 			$.getJSON("api/annotations/"+pid+"/"+uid, function (result, text, res) {
-				console.log(res);
-				console.log("fdsf");
 				if (result) {
+					console.log(result);
 					var anno = new AnnotationItem(result);
 					annotation(anno);
 					annotationExist(true);
 					return;
 				}
-				 
-			annotationExist(false);
-				 
+
+			})
+			.fail(function (event, jqxhr, exception) {
+				if (jqxhr.status == 404) {
+					console.log("error occurred ");
+					annotationExist(false);
+				}
 			});
+			
 		}
 
 		function fave() {
@@ -151,7 +155,7 @@
 		};
 
 		AddData = function () {
-			$(".anno-modal").modal('toggle');
+			$(".anno-modal.add").modal('toggle');
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:3133/api/annotations",
@@ -168,7 +172,18 @@
 		};
 
 		function editAnnotationData() {
-		console.log("ed");
+			$(".anno-modal.edit").modal('toggle');
+			$.ajax({
+				type: "PUT",
+				url: "http://localhost:3133/api/annotations",
+				data: ko.toJSON({ Body: annotation().Body, PostId:annotation().PostId, UserId: annotation().UserId, Date:annotation().Date }, console.log(addanno)),
+				contentType: "application/json; charset=utf-8",
+				success: function (result) {
+				},
+				error: function (err) {
+					alert(err.status + " - " + err.statusText);
+				}
+			});
 		}
 
 		return {
