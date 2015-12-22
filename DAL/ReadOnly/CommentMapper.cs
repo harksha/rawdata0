@@ -13,7 +13,7 @@ namespace DAL.ReadOnly
 		{
 
 			TableName = "comment";
-			Attributes = new string[] { "postId","text", "creationDate","Userid" };
+			Attributes = new string[] { "userId", "postId",  "text", "creationDate" };
 		}
 		/*public override Comment GetById(int postid)
 		{
@@ -38,24 +38,32 @@ namespace DAL.ReadOnly
 			if (reader.Read()&& reader.HasRows)
 			{
 				
-				string a_body;
-				string a_date;
-				string a_id;
+				int p_id, id, u;
+				DateTime a_date;
+				string text;
 
-				if (!reader.IsDBNull(0)) { a_body = reader.GetString(0); }
-				else { a_id = "unknown"; }
-				if (!reader.IsDBNull(1)) { a_body = reader.GetString(1); }
-				else { a_body = "unknown"; }
-				if (!reader.IsDBNull(2)) { a_date = reader.GetString(2); }
-				else { a_date = "unknown"; }
+
+				if (!reader.IsDBNull(0)) { id = reader.GetInt32(0); }
+				else { id = 0; }
+				if (!reader.IsDBNull(1)) { u = reader.GetInt32(1); }
+				else { u = 0; }
+				if (!reader.IsDBNull(2)) { p_id = reader.GetInt32(2); }
+				else { p_id = 0; }
 				
+				if (!reader.IsDBNull(3)) { text = reader.GetString(3); }
+				else { text = "unknown"; }
+				if (!reader.IsDBNull(4)) { a_date = reader.GetDateTime(4); }
+				else { a_date = DateTime.Now; }
+				
+
 				var comment = new Comment
 				{
+					Id=id,
+					PostId=p_id,
+					userId = u,
+                    Text = text,
+					CreationDate = a_date,
 					
-					Text = a_body,
-					CreationDate = a_date
-
-
 			
 
 				};

@@ -9,6 +9,10 @@ namespace DAL.ReadOnly
 {
 	public class CommentRepository : Repository<Comment>
 	{
+		public CommentRepository(IDataMapper<Comment> dataMapper) : base(dataMapper)
+		{
+		}
+
 		public CommentRepository(string connectionString) : base(new CommentMapper(connectionString)) { }
 
 
