@@ -133,7 +133,7 @@ namespace DAL
 		{
 			if (DataMapper == null)
 			{
-				var sql = string.Format("SELECT ID, {0} FROM {1} WHERE postId={4} LIMIT {2} OFFSET {3} ",
+				var sql = string.Format("SELECT ID, {0} FROM {1} WHERE postId={5} LIMIT {2} OFFSET {3} ",
 				string.Join(", ", UpdatableDataMapper.Attributes),
 				UpdatableDataMapper.TableName,
 				limit,
