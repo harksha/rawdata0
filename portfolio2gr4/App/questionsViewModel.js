@@ -80,12 +80,15 @@
 		
 		function getQuestionComments(id) {
 			$.getJSON("api/questions/"+id+"/comments" , function (result) {
-				var commms = [];
+				var comms = [];
 				if (result.length > 0){
 					for (var i = 0; i < result.length; i++) {
-						//console.log(result[i]);
+						comms.push(new CommentItem(result[i]));
 					}
 				}
+				comments(comms);
+				console.log(comments());
+				
 			});
 		}
 
@@ -224,6 +227,13 @@
 		self.Title = data.Title;
 		self.Owner = data.Owner;
 		self.Id = data.Url.substring(36);
+	};
+
+	function CommentItem(data) {
+		var self = this;
+		self.CreationDate = data.creationDate;
+		self.Body = data.text;
+		self.Owner = data.userId;
 	};
 
 	function AnswerItem(data) {
