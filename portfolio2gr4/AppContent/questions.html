@@ -35,10 +35,12 @@
 		</div>
 		<p class="question-body col-xs-12" data-bind="html:currentQuestion().Body"> </p> 
 
-		<div class="annotation col-xs-12">
-			<button class="btn btn-success" data-toggle="modal" data-target="#annotationModal" type="submit">Add Annotation</button>
+		<div class="annotation col-xs-12" data-bind="visible:currentUser()">
+			<button class="btn btn-success" data-toggle="modal" data-target="#annotationAddModal" type="submit" data-bind="visible:!annotationExist()">Add Annotation</button>
+			<button class="btn btn-warning" data-toggle="modal" data-target="#annotationEditModal" type="submit" data-bind="visible:annotationExist()">Edit Annotation</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#annotationViewModal" type="submit" data-bind="visible:annotationExist()">View Annotation</button>
 
-			<div class="modal fade anno-modal" id="annotationModal" tabindex="-1" role="dialog">
+			<div class="modal fade anno-modal" id="annotationAddModal" tabindex="-1" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -55,24 +57,61 @@
 				</div><!-- /.modal-dialog -->
 			</div><!-- /.modal -->
 
-		</div>
-	 
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<div data-bind="visible:!answers().length">
-				<h3>Sorry, no answers were found :(.</h3>
-			</div>
+			<div class="modal fade anno-modal" id="annotationEditModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Add your annotation here:</h4>
+						</div>
+						<div class="modal-body">
+							<textarea class="annotation-input" data-bind="value:annotation.Body, text:annotation.Body" placeholder="Add Annotation"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-bind="click:editAnnotationData()">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
 
-			<div data-bind="visible:answers().length>0">
-				<h4>Answers:</h4>
-				<div class="answers" data-bind="foreach:answers">
-					<div class="answer">
-						<div class="answer-body" data-bind="html:Body"></div>
-						<div class="answer-date" data-bind="text:CreationDate"></div>
-					</div>
+			<div class="modal fade anno-modal" id="annotationViewModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Add your annotation here:</h4>
+						</div>
+						<div class="modal-body">
+							<textarea class="annotation-input" data-bind="value:Body, text:Body" placeholder="Add Annotation"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-bind="click:AddData">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
+		</div>
+		<div class="annotation col-xs-12" data-bind="visible:!currentUser()">
+			<h3 class="question-login-box">Log in to edit/view annotation</h3>
+		</div>
+
+			<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+				<div data-bind="visible:!answers().length">
+					<h3>Sorry, no answers were found :(.</h3>
 				</div>
-				
+
+				<div data-bind="visible:answers().length>0">
+					<h4>Answers:</h4>
+					<div class="answers" data-bind="foreach:answers">
+						<div class="answer">
+							<div class="answer-body" data-bind="html:Body"></div>
+							<div class="answer-date" data-bind="text:CreationDate"></div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</div>
-	</div>
 </div>
 

@@ -8,7 +8,8 @@
 		var answers = ko.observable([]);
 		var comments = ko.observable([]);
 		var questionFaves = ko.observable([]);
-
+		var annotation = ko.observable(AnnotationItem);
+		var annotationExist = ko.observable(false);
 		var currentPage = ko.observable("");
 		var nextPage = ko.observable("");
 		var prevPage = ko.observable("");
@@ -65,6 +66,7 @@
 			currentQuestion(data);
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
+			getAnnotation(currentUser(), currentQuestion().Id);
 			getQuestionComments(currentQuestion().Id);
 			getVotes(currentQuestion().Id);
 			$(".questions").addClass("col-sm-6");
@@ -112,6 +114,21 @@
 			});
 		}
 
+		function getAnnotation(uid, pid) {
+			$.getJSON("api/annotations/"+pid+"/"+uid, function (result, text, res) {
+				console.log(res);
+				console.log("fdsf");
+				if (result) {
+					var anno = new AnnotationItem(result);
+					annotation(anno);
+					annotationExist(true);
+				}
+				else {
+					annotationExist(false);
+				}
+			});
+		}
+
 		function fave() {
 			$.ajax({
 				type: "POST",
@@ -134,7 +151,6 @@
 
 		AddData = function () {
 			$(".anno-modal").modal('toggle');
-
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:3133/api/annotations",
@@ -149,6 +165,11 @@
 				}
 			});
 		};
+
+		function editAnnotationData() {
+		console.log("ed");
+		}
+
 		return {
 			title:this.title,
 			searchResult: searchResult,
@@ -163,7 +184,11 @@
 			getNextPage: getNextPage,
 			Body: Body,
 			AddData: AddData,
-			fave:fave
+			fave: fave,
+			annotationExist: annotationExist,
+			annotation: annotation,
+			currentUser: currentUser,
+			editAnnotationData:editAnnotationData
 		}
 	}
 
@@ -196,6 +221,14 @@
 		self.PostId = data.PostId;
 		self.UserId = data.UserId;
 	};
+
+	function AnnotationItem(data) {
+		var self = this;
+		self.PostId = data.PostId;
+		self.UserId = data.UserId;
+		self.Date = data.CreationDate;
+		self.Body = data.Body;
+	}
 
 	return viewModel;
 });
