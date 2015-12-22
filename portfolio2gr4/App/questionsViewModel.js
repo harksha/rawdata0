@@ -122,10 +122,11 @@
 					var anno = new AnnotationItem(result);
 					annotation(anno);
 					annotationExist(true);
+					return;
 				}
-				else {
-					annotationExist(false);
-				}
+				 
+			annotationExist(false);
+				 
 			});
 		}
 
