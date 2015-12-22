@@ -15,12 +15,12 @@ namespace portfolio2gr4.Controllers
 {
 	public class HistorysController : BaseApiController
 	{
-		private HistoryRepository _hisRepository = new HistoryRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
+		//private HistoryRepository _hisRepository = new HistoryRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 
-		//static HistoryMapper dataMapper = new HistoryMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-		//HistoryRepository _hisRepository = new HistoryRepository(dataMapper);
+		static HistoryMapper dataMapper = new HistoryMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
+		HistoryRepository _hisRepository = new HistoryRepository(dataMapper);
 
-		public HttpResponseMessage Get(int uid, int size = 10, int page = 1)
+		/*public HttpResponseMessage Get(int uid, int size = 10, int page = 1)
 		{
 			page--;
 			var helper = new UrlHelper(Request);
@@ -44,14 +44,14 @@ namespace portfolio2gr4.Controllers
 			response.Headers.Add("next-page", next);
 			response.Headers.Add("prev-page", prev);
 			return response;
-		}
+		}*/
 
 		public IEnumerable<HistoryModel> Get(int uid)
 		{
 			var helper = new UrlHelper(Request);
 			return _hisRepository.GetByUserId(uid).Select(vote => ModelFactory.Create(vote));
 		}
-		public IEnumerable<HistoryModel> GetBySearchName(string searchText_History)
+		/*public IEnumerable<HistoryModel> GetBySearchName(string searchText_History)
 		{
 			var helper = new UrlHelper(Request);// I don't need url helper here 
 			return _hisRepository.GetByFullTextSearch(searchText_History, "body", 1000, 0).Select(annotation => ModelFactory.Create(annotation));
@@ -77,7 +77,7 @@ namespace portfolio2gr4.Controllers
 			response.Headers.Add("next-page", next);
 			response.Headers.Add("prev-page", prev);
 			return response;
-		}
+		}*/
 		public HttpResponseMessage Post([FromBody] HistoryModel model)
 		{
 			var helper = new UrlHelper(Request);

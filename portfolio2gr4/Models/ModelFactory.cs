@@ -160,7 +160,7 @@ namespace WebService.Models
 		{
 			return new HistoryModel
 			{
-				Url = _urlHelper.Link("HistoryByIdApi", new { id = history.Id }),
+				Url = _urlHelper.Link("HistoryApi", new { id = history.Id }),
 				Body = history.Body,
 				Date = history.Date,
 				UserId = history.UserId
