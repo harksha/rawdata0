@@ -69,10 +69,10 @@
 					//not implemented yet
 					break;
 				case "Questions":
-					if (currentUser()) {
+					if (currentUser()) { 
 						$.ajax({
 							type: "POST",
-							url: "api/users/" + currentUser().Id + "/historys",
+							url: "api/users/" + userId + "/historys",
 							data: ko.toJSON({ UserId: currentUser().Id, Body: searchText(), Date: new Date().toLocaleString() }),
 							contentType: "application/json; charset=utf-8",
 							success: function (result) {
