@@ -1,7 +1,7 @@
 ﻿define(['knockout', 'jquery', 'knockout.validation'], function (ko, $, validation) {
 	function viewModel() {
 		//OBJECTS:
-		var menuItems = ["Home","Questions", "Users", "Annotations", "History"];
+		var menuItems = ["Home","Questions", "Users"];
 		var searchOptions = ["Questions", "Users", "Annotation"];
 		var searchOption = ko.observable("Choose");
 
