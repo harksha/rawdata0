@@ -37,7 +37,6 @@ namespace DAL.Rewrittable
 					}
 				}
 			}
-
 		}
 
 		public override int Insert(Annotation annotation)
@@ -45,8 +44,9 @@ namespace DAL.Rewrittable
 			var sql = string.Format("insert into {0} ({1}) values({2})",
 				TableName, AttributeList, DecoratedAttributeList(x => "@" + x));
 			var cmd = new MySqlCommand(sql);
-			cmd.Parameters.AddWithValue("@" + Attributes[0], annotation.Body);
-			cmd.Parameters.AddWithValue("@" + Attributes[1], annotation.Date);
+			DateTime now = DateTime.Now;
+            cmd.Parameters.AddWithValue("@" + Attributes[0], annotation.Body);
+			cmd.Parameters.AddWithValue("@" + Attributes[1], now);
 			cmd.Parameters.AddWithValue("@" + Attributes[2], annotation.PostId);
 			cmd.Parameters.AddWithValue("@" + Attributes[3], annotation.UserId);
 			return ExecuteNonQuery(cmd);

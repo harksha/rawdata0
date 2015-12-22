@@ -128,7 +128,7 @@ namespace WebService.Models
 			{
 				Url = _urlHelper.Link("AnnotationByIdApi", new { id = annotation.Id }),
 				Body = annotation.Body,
-				Date = annotation.Date,
+				Date = DateTime.Now,
 				UserId = annotation.UserId,
 				PostId = annotation.PostId
 

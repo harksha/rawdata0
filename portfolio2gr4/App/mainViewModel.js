@@ -25,7 +25,7 @@
 
 		var currentUser = ko.observable(UsersItem);
 		var isLoggedIn = ko.observable(false);
-		var userId = ko.observable("");
+		var userId = ko.observable("").extend({required:true});
 
 		//UTIL FUNCTIONS:
 		isActive = function (menu) {
@@ -42,7 +42,7 @@
 					break;
 				case "Questions":
 					if (searchText.isValid()) { 
-						$.getJSON("api/questions/search_title/" + searchText() + "-10-1", function (result) {
+						$.getJSON("api/questions/search_title/" + searchText() + "-10-0", function (result) {
 							if (result.length >= 1) {
 								showSuggestions(true);
 								var titles = $.map(result, function (q) {
@@ -68,11 +68,29 @@
 					break;
 				case "Questions":
 					console.log(searchText());
-					$.getJSON("api/questions/search/" + searchText(), function (result) {
+
+					//$.ajax({
+					//	type: "POST",
+					//	url: "api/questions/" + currentQuestion().Id + "/votes",
+					//	data: ko.toJSON({ VoteType: 5, PostId: currentQuestion().Id, UserId: currentUser() }),
+					//	contentType: "application/json; charset=utf-8",
+					//	success: function (result) {
+					//		console.log("fave Added");
+					//	},
+					//	error: function (err) {
+					//		alert(err.status + " - " + err.statusText);
+					//	}
+					//});
+
+					$.getJSON("api/questions/search/" + searchText() + "-10-1", function (result, text, jqXHR) {
+						var next = jqXHR.getResponseHeader('next-page');
+						var prev = jqXHR.getResponseHeader('prev-page');
 						if (result.length >= 1) {
 							searchResult(result);
-							viewData(searchResult);
+							viewData( searchResult, next, prev);
 							changeContent("Questions");
+							showSuggestions(false);
+							console.log(result);
 						} else {
 							console.log("no result found!");
 						}
@@ -86,7 +104,14 @@
 
 		function goToQuestion(target) {
 			id = target.Id;
-			console.log(id);
+			$.getJSON("api/questions/"+id, function (result) {
+				if (result) {
+					var q = new QuesItem(result);
+					viewData(q);
+					showSuggestions(false);
+					changeContent("Questions");
+				}
+			});
 		}
 
 		function checkLogIn() {
@@ -154,6 +179,16 @@
 		self.Name = data.Name;
 		self.Location = data.Location;
 
+	};
+
+	function QuesItem(data) {
+		var self = this;
+		self.Url = data.Url;
+		self.CreationDate = data.CreationDate;
+		self.Body = data.Body;
+		self.Title = data.Title;
+		self.Owner = data.Owner;
+		self.Id = data.Url.substring(36);
 	};
 
 	return viewModel;

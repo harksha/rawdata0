@@ -54,9 +54,8 @@ namespace portfolio2gr4.Controllers
 			return _questionRepository.GetByFullTextSearch(searchText_title, "title", 10, 0).Select(question => ModelFactory.Create(question));
 		}
 
-		public HttpResponseMessage GetBySearch(string searchText, int size=10, int page=1)
+		public HttpResponseMessage GetBySearch(string searchText, int size, int page)
 		{
-			page--;
 			var helper = new UrlHelper(Request);
 			if (size > 100) size = 10;
 			int offset = page * size;
@@ -73,11 +72,12 @@ namespace portfolio2gr4.Controllers
 				.CreateResponse(
 				HttpStatusCode.OK,
 				_questionRepository.GetByFullTextSearch(searchText, "title,body", size, offset).Select(question => ModelFactory.Create(question)));
-            response.Headers.Add("next-page", next);
+			response.Headers.Add("next-page", next);
 			response.Headers.Add("prev-page", prev);
 			return response;
 			
 		}
+
 		public HttpResponseMessage GetById(int id) {
 			var helper = new UrlHelper(Request);
 			var question = _questionRepository.GetById(id);

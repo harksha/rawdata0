@@ -48,5 +48,17 @@
 small.text-muted {
 	font-family: courier,courier-new,monospace;
 }
-.search-choice { background-color:var(--rose-quartz); }
- 
+.search-choice { position:relative; background-color:var(--rose-quartz); padding-right:3rem; }
+.search-choice:after {
+	content:"";
+	width: 0; 
+	height: 0; 
+	border-left: .8rem solid transparent;
+	border-right: .8rem solid transparent;
+	border-top: 1rem solid var(--peach-echo);
+	position:absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right:1rem;
+
+}

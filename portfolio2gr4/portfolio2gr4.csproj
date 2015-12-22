@@ -127,9 +127,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppContent\annotations.html" />
     <Content Include="AppContent\frontPage.html" />
     <Content Include="AppContent\history.html" />
+    <Content Include="AppContent\annotations.html" />
     <Content Include="AppContent\users.html" />
     <Content Include="App\annotationsViewModel.js" />
     <Content Include="App\historyViewModel.js" />

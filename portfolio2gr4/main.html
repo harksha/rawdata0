@@ -14,11 +14,11 @@
 
 			<div class="collapse navbar-collapse" id="navbar-collapse">
 				<form class="navbar-form navbar-left" role="search">
-					<div class="form-group col-xs-8 col-sm-6">
+					<div class="form-group col-xs-6 col-sm-6">
 						<input type="text" class="form-control" placeholder="Search" data-bind="textInput:searchText, event: {input:getSuggestions}">
 					</div>
-					<button type="button" class="btn btn-default col-xs-2 col-sm-3" data-bind="click:searchFor">Submit</button>
-					<div class="dropdown search-dd col-xs-2 col-sm-3">
+					<button type="button" class="btn btn-default col-xs-3 col-sm-3" data-bind="click:searchFor">Submit</button>
+					<div class="dropdown search-dd col-xs-3 col-sm-3">
 						<button class="btn btn-default dropdown-toggle search-choice" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-bind="text:searchOption()">
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" data-bind="foreach:searchOptions">

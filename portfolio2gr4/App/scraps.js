@@ -57,10 +57,8 @@
 						//console.log("res:");
 						//console.log(history());
 						function uri() {
-
 						}
 					};
-
 				});
 			} else if (name === "questions") {
 				name = "questions/10-1";
@@ -72,7 +70,6 @@
 						//console.log("res:");
 						//console.log(history());
 					};
-
 				});
 			} else {
 				$.getJSON("http://localhost:3133/api/" + name, function (result) {

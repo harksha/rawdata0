@@ -8,17 +8,26 @@
 		var answers = ko.observable([]);
 		var comments = ko.observable([]);
 		var questionFaves = ko.observable([]);
-		var currentPage = ko.observable("http://localhost:3133/api/questions/10-0");
+
+		var currentPage = ko.observable("");
 		var nextPage = ko.observable("");
 		var prevPage = ko.observable("");
 		var currentUser = ko.observable(localStorage.userId);
 		Body = ko.observable(""),
 
-		this.title = "Hello from questions";
+		this.title = "Questions";
 
 		if (typeof params === 'object') {
-			switchPage();
+			if (params.Id) {
+				showSingleQuestion(true);
+			}
+			else {
+				currentPage = ko.observable("http://localhost:3133/api/questions/10-0");
+				switchPage();
+			}
+			
 		} else {
+			console.log(params);
 			var rez = [];
 			for(var i=0; i<params().length; i++){
 				var question = new QuesItem(params()[i]);
@@ -30,10 +39,9 @@
 		function switchPage() {
 			$.getJSON(currentPage(), function (result, text, jqXHR) {
 				var next = jqXHR.getResponseHeader('next-page');
-				var prev = jqXHR.getResponseHeader('prev-page')
+				var prev = jqXHR.getResponseHeader('prev-page');
 				nextPage(next);
-				prevPage(prev);
-				console.log(nextPage(), prevPage());
+				prevPage(prev); 
 				var rez = [];
 				for (var i = 0; i < result.length; i++) {
 					var question = new QuesItem(result[i]);
@@ -61,7 +69,7 @@
 			getVotes(currentQuestion().Id);
 			$(".questions").addClass("col-sm-6");
 			var top = $(".single-question").offset().top;
-			 $("body").scrollTop(top);
+			$("body").scrollTop(top);
 			addanno = currentQuestion().Url.substring(36);
 		}
 		
@@ -82,15 +90,12 @@
 				if (result.length >= 1) {
 					for (var i = 0; i < result.length; i++) {
 						var vote = new VoteItem(result[i]);
-						console.log(vote); 
 						if (vote.Type == 5) { 
 							faves.push(vote);
 						}
-						
 					}
 				}
-				questionFaves(faves);
-				console.log(faves);
+				questionFaves(faves); 
 			});
 		}
 
@@ -108,7 +113,6 @@
 		}
 
 		function fave() {
-			console.log(currentUser());
 			$.ajax({
 				type: "POST",
 				url: "api/questions/" + currentQuestion().Id + "/votes",
@@ -129,14 +133,16 @@
 		};
 
 		AddData = function () {
+			$(".anno-modal").modal('toggle');
+
 			$.ajax({
 				type: "POST",
 				url: "http://localhost:3133/api/annotations",
-				data: ko.toJSON({ Body: this.Body, PostId: addanno }, console.log(addanno)),
+				data: ko.toJSON({ Body: this.Body, PostId: addanno, UserId: currentUser() }, console.log(addanno)),
 				contentType: "application/json; charset=utf-8",
 				success: function (result) {
 					// anno.push(new annoItem(result));
-					alert("Annotation Added");
+					 
 				},
 				error: function (err) {
 					alert(err.status + " - " + err.statusText);

@@ -1,6 +1,6 @@
 ﻿<div class="question-view">
 	<h2 data-bind="text: title"></h2>
-	<!--data-bind="visible:!showSingleQuestion()"--> 
+  
 	<div class="questions col-xs-12" >
 
 		<div data-bind="visible:searchResult().length">
@@ -30,11 +30,32 @@
 			<span class="question-date" data-bind="text: currentQuestion().CreationDate"></span>
 		</div>
 		<div class="col-xs-6">
-			<a class="vote" data-bind="click:fave.bind()"><span class="col-xs-3 glyphicon glyphicon-star-empty"></span></a>
+			<a class="vote" data-bind="click:fave.bind()"><span class="col-xs-3 col-xs-offset-6  glyphicon glyphicon-star-empty"></span></a>
 			<span class="votes-number" data-bind="text:questionFaves().length"> </span>
 		</div>
 		<p class="question-body col-xs-12" data-bind="html:currentQuestion().Body"> </p> 
 
+		<div class="annotation col-xs-12">
+			<button class="btn btn-success" data-toggle="modal" data-target="#annotationModal" type="submit">Add Annotation</button>
+
+			<div class="modal fade anno-modal" id="annotationModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Add your annotation here:</h4>
+						</div>
+						<div class="modal-body">
+							<textarea class="annotation-input" data-bind="value:Body, text:Body"  placeholder="Add Annotation"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary" data-bind="click:AddData">Save changes</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
+		</div>
 	 
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<div data-bind="visible:!answers().length">
@@ -49,10 +70,7 @@
 						<div class="answer-date" data-bind="text:CreationDate"></div>
 					</div>
 				</div>
-				<div>
-					<input data-bind="value:Body, text:Body" placeholder="Add Annotation" />
-					<input data-bind="click:AddData" type="submit" text="Submit" />
-				</div>
+				
 			</div>
 		</div>
 	</div>
