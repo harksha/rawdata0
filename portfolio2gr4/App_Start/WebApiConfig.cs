@@ -106,13 +106,13 @@ namespace portfolio2gr4
 				defaults: new { controller = "Annotations" }
 			);
 			config.Routes.MapHttpRoute(
-			   name: "HistoryPostApi",
+			   name: "HistoryApi",
 			   routeTemplate: "api/users/{uid}/historys",
 			   //routeTemplate: "api/historys/{id}",
 			   defaults: new { controller = "Historys", }
 			  );
 
-			config.Routes.MapHttpRoute(
+			/*config.Routes.MapHttpRoute(
 			   name: "HistoryApi",
 			   routeTemplate: "api/users/{uid}-{size}-{page}/historys",
 			   //routeTemplate: "api/historys/{id}",
@@ -128,7 +128,7 @@ namespace portfolio2gr4
 			   routeTemplate: "api/historys/search/{searchText_history}-{uid}-{size}-{page}",
 			   //routeTemplate: "api/historys/{id}",
 			   defaults: new { controller = "Historys", }
-			  );
+			  );*/
 
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
