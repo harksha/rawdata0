@@ -64,6 +64,8 @@
 		}
 
 		function getSingleQuestion(data) {
+			$(".fav-glyph").removeClass("glyphicon-star");
+			$(".fav-glyph").addClass("glyphicon-star-empty");
 			currentQuestion(data);
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
@@ -134,6 +136,11 @@
 		}
 
 		function fave() {
+			var qid = currentQuestion().Id;
+			var uid = currentUser();
+			$(".fav-glyph").addClass("glyphicon-star");
+			$(".fav-glyph").removeClass("glyphicon-star-empty");
+			questionFaves().push({"VoteType":5, "PostId":qid, "UserId":uid});
 			$.ajax({
 				type: "POST",
 				url: "api/questions/" + currentQuestion().Id + "/votes",
