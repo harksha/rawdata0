@@ -115,22 +115,21 @@
 		}
 
 		function getAnnotation(uid, pid) {
-			$.getJSON("api/annotations/"+pid+"/"+uid, function (result, text, res) {
+			var promise = $.getJSON("api/annotations/" + pid + "/" + uid);
+			promise.done(function(result){
 				if (result) {
 					console.log(result);
 					var anno = new AnnotationItem(result);
 					annotation(anno);
 					annotationExist(true);
-					return;
+					 
 				}
-
 			})
-			.fail(function (event, jqxhr, exception) {
-				if (jqxhr.status == 404) {
-					console.log("error occurred ");
-					annotationExist(false);
-				}
+			.fail(function() {
+				annotationExist(false);
+				annotation();
 			});
+		
 			
 		}
 
@@ -162,7 +161,9 @@
 				data: ko.toJSON({ Body: this.Body, PostId: addanno, UserId: currentUser() }, console.log(addanno)),
 				contentType: "application/json; charset=utf-8",
 				success: function (result) {
-					// anno.push(new annoItem(result));
+					annotation(result);
+					annotationExist(true);
+					console.log(result);
 					 
 				},
 				error: function (err) {
