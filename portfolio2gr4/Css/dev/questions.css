@@ -3,5 +3,11 @@
 .question { border:1px solid var(--snorkel-blue); color:var(--light-serenity); background-color:var(--serenity); box-sizing: border-box; border-radius: .5rem; margin-bottom :1rem; padding:1rem; }
 	.question-title { font-size:2rem; display:block; color:var(--white); }
 	.question-title:hover { color:var(--snorkel-blue); }
+	.question-date, .question-body { display:block; }
+	.question-owner { display:inline-block; }
+	.question-body { padding-top:2rem; }
+	.vote { color:var(--peach-echo); }
+	.vote:hover { color:var(--fiesta); }
+	.votes-number { color:var(--peach-echo); font-size:1.6rem;}
 .comment { background-color:var(--limpet-shell); padding:1rem; }
 .answer { border:1px solid var(--peach-echo); background-color:var(--rose-quartz); padding:1rem .5rem; margin-bottom:1rem; }

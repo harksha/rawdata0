@@ -1,6 +1,7 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,900,700);
 
 :root {
-	--main-font:Arial, sans-serif;
+	--main-font:'Lato', Arial, sans-serif;
 	--red:#f00;
 	--white:#fff;
 	--black:#000;
@@ -10,5 +11,9 @@
 	--snorkel-blue:#034f84;
 	--peach-echo:#f7786b;
 	--limpet-shell:#98ddde;
+	--lilac-grey:#9896a4;
+	--fiesta:#dd4132;
+	--green-flash:#79c753;
+	--buttercup:#fae03c;
 }
  

@@ -7,10 +7,12 @@
 		var searchResult = ko.observable([]);
 		var answers = ko.observable([]);
 		var comments = ko.observable([]);
+		var questionFaves = ko.observable([]);
 		var currentPage = ko.observable("http://localhost:3133/api/questions/10-0");
 		var nextPage = ko.observable("");
 		var prevPage = ko.observable("");
-	    Body = ko.observable(""),
+		var currentUser = ko.observable(localStorage.userId);
+		Body = ko.observable(""),
 
 		this.title = "Hello from questions";
 
@@ -57,7 +59,7 @@
 			showSingleQuestion(true); 
 			getAnswers(currentQuestion().Id);
 			getQuestionComments(currentQuestion().Id);
-
+			getVotes(currentQuestion().Id);
 			$(".questions").addClass("col-sm-6");
 			var top = $(".single-question").offset().top;
 			 $("body").scrollTop(top);
@@ -69,12 +71,28 @@
 				var commms = [];
 				if (result.length > 0){
 					for (var i = 0; i < result.length; i++) {
-						console.log(result[i]);
+						//console.log(result[i]);
 					}
-					
 				}
 			});
+		}
 
+		function getVotes(id) {
+			$.getJSON("api/questions/" + id + "/votes", function (result) {
+				var faves = [];
+				if (result.length >= 1) {
+					for (var i = 0; i < result.length; i++) {
+						var vote = new VoteItem(result[i]);
+						console.log(vote); 
+						if (vote.Type == 5) { 
+							faves.push(vote);
+						}
+						
+					}
+				}
+				questionFaves(faves);
+				console.log(faves);
+			});
 		}
 
 		function getAnswers(id) {
@@ -90,10 +108,26 @@
 			});
 		}
 
+		function fave() {
+			console.log(currentUser());
+			$.ajax({
+				type: "POST",
+				url: "api/questions/" + currentQuestion().Id + "/votes",
+				data: ko.toJSON({ VoteType: 5, PostId: currentQuestion().Id, UserId:currentUser()  }),
+				contentType: "application/json; charset=utf-8",
+				success: function (result) {
+					console.log("fave Added");
+				},
+				error: function (err) {
+					alert(err.status + " - " + err.statusText);
+				}
+			});
+		};
+
 		function goBack() {
 			showSingleQuestion(false);
 			$(".questions").removeClass("col-sm-6");
-		}
+		};
 
 		AddData = function () {
 			$.ajax({
@@ -119,10 +153,12 @@
 			goBack: goBack,
 			answers: answers,
 			comments:comments,
+			questionFaves:questionFaves,
 			getPrevPage: getPrevPage,
 			getNextPage: getNextPage,
 			Body: Body,
-			AddData: AddData
+			AddData: AddData,
+			fave:fave
 		}
 	}
 
@@ -147,6 +183,13 @@
 
 	function CommmentItem(data){
 		var self=this;
+	};
+	
+	function VoteItem(data) {
+		var self = this;
+		self.Type = data.VoteType;
+		self.PostId = data.PostId;
+		self.UserId = data.UserId;
 	};
 
 	return viewModel;

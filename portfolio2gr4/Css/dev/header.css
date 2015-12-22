@@ -1,16 +1,20 @@
 li { list-style-type:none; }
 
 .navbar-default { 
-	background-color:var(--rose-quartz);
+	background-color:var(--white);
 }
 .navbar-default .navbar-brand {
-	color:var(--serenity);
+	color:var(--peach-echo);
 }
 header.navbar { margin-bottom:0; }
 
 .suggestions-list { position:absolute; top:5rem; background-color:var(--serenity); border:1px solid azure; }
 .suggestion { padding:.5rem 1rem; }
 .suggestion-link { color:var(--white); }
+
+.menu-link { text-align:center; }
+.menu-link:hover { }
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {  background-color:var(--peach-echo); }
 
 @media all and (max-width:768px)
 {

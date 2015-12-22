@@ -1,9 +1,23 @@
+* {
+	outline-color:var(--snorkel-blue)!important;
+}
 body { 
-	
+	color:var(--lilac-grey);
 	font-family:var(--main-font);
+	
 }
 a { cursor:pointer; }
 .main-container { top:0; position:relative; display:block; width:98%; margin:0 auto; }
-.validationMessage { position:absolute; top:5rem; left:10rem; padding:1rem; background-color:var(--white); transition:display .5s; border:1px solid var(--red); }
+.validationMessage { z-index:1; position:absolute; top:4rem; left:2rem; padding:1rem; background-color:var(--white); transition:display .5s; border:1px solid var(--red); }
 
- 
+.btn-default { border-color:var(--peach-echo); }
+.btn-default:hover, .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default, .btn-default.focus, .btn-default:focus { background-color:var(--rose-quartz); border-color:var(--peach-echo);  }
+.btn-primary { background-color:var(--snorkel-blue); }
+.btn-success { background-color:var(--green-flash); }
+.btn-info {  }
+.btn-warning {  }
+.btn-danger {  }
+
+.form-control { border-color:var(--lilac-grey); }
+.form-control:focus { border-color:var(--peach-echo);-webkit-box-shadow: inset 0 1px 1px rgba(242, 221, 222, .075),0 0 8px rgba(242, 221, 222, 1); box-shadow: inset 0 1px 1px rgba(242, 221, 222, .075),0 0 8px rgba(242, 221, 222, 1); }
+input:focus { color:var(--peach-echo); }

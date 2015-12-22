@@ -127,14 +127,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="addanno.html" />
     <Content Include="AppContent\annotations.html" />
     <Content Include="AppContent\frontPage.html" />
     <Content Include="AppContent\history.html" />
     <Content Include="AppContent\users.html" />
     <Content Include="App\annotationsViewModel.js" />
     <Content Include="App\historyViewModel.js" />
-    <Content Include="App\JavaScript.js" />
     <Content Include="App\main.js" />
     <Content Include="App\mainViewModel.js" />
     <Content Include="App\questionsViewModel.js" />
@@ -166,9 +164,6 @@
     <Content Include="Scripts\require.config.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\text.js" />
-    <Content Include="search.css" />
-    <Content Include="search.html" />
-    <Content Include="styles.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

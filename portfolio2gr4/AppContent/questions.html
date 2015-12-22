@@ -26,13 +26,17 @@
 
 
 	<div data-bind="visible:showSingleQuestion,css: { showSingle: showSingleQuestion }" class="single-question col-xs-12 col-sm-6">
-		<a data-bind="click:goBack">Go back</a>
-		Single Question
+		<a data-bind="click:goBack" class="glyphicon glyphicon-remove text-right"> </a>
 		<h3 data-bind="text:currentQuestion().Title"> </h3> 
-		<h4><span class="label label-default" data-bind="text:currentQuestion().Owner"></span></h4><h4>
-				<span data-bind="text: currentQuestion().CreationDate"></span> 
-		</h4>
-		<p data-bind="html:currentQuestion().Body"> </p> 
+		<div class="question-description col-xs-6">
+			<span class="label label-default question-owner" data-bind="text:currentQuestion().Owner"></span>
+			<span class="question-date" data-bind="text: currentQuestion().CreationDate"></span>
+		</div>
+		<div class="col-xs-6">
+			<a class="vote" data-bind="click:fave.bind()"><span class="col-xs-3 glyphicon glyphicon-star-empty"></span></a>
+			<span class="votes-number" data-bind="text:questionFaves().length"> </span>
+		</div>
+		<p class="question-body col-xs-12" data-bind="html:currentQuestion().Body"> </p> 
 
 	 
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
@@ -41,7 +45,7 @@
 			</div>
 
 			<div data-bind="visible:answers().length>0">
-				<h2>Answers:</h2>
+				<h4>Answers:</h4>
 				<div class="answers" data-bind="foreach:answers">
 					<div class="answer">
 						<div class="answer-body" data-bind="html:Body"></div>
