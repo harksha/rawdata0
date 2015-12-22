@@ -105,15 +105,21 @@ namespace portfolio2gr4
 				routeTemplate: "api/annotations/{postid}/{userid}",
 				defaults: new { controller = "Annotations" }
 			);
-			
-            config.Routes.MapHttpRoute(
+			config.Routes.MapHttpRoute(
+			   name: "HistoryPostApi",
+			   routeTemplate: "api/users/{uid}/historys",
+			   //routeTemplate: "api/historys/{id}",
+			   defaults: new { controller = "Historys", }
+			  );
+
+			config.Routes.MapHttpRoute(
 			   name: "HistoryApi",
 			   routeTemplate: "api/users/{uid}-{size}-{page}/historys",
 			   //routeTemplate: "api/historys/{id}",
 			   defaults: new { controller = "Historys", }
 			  );
 			config.Routes.MapHttpRoute(
-			   name: "HistoryByIdApi",
+			   name: "HistoryPostIdApi",
 			   routeTemplate: "api/historys/{id}",
 			   defaults: new { controller = "Historys", }
 			  );

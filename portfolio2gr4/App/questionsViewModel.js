@@ -18,8 +18,10 @@
 
 		this.title = "Questions";
 
-		if (typeof params === 'object') {
+		if (typeof params === 'object') { 
 			if (params.Id) {
+				currentQuestion(params);
+				searchResult(params);
 				showSingleQuestion(true);
 			}
 			else {
@@ -28,7 +30,6 @@
 			}
 			
 		} else {
-			console.log(params);
 			var rez = [];
 			for(var i=0; i<params().length; i++){
 				var question = new QuesItem(params()[i]);
@@ -122,7 +123,6 @@
 					var anno = new AnnotationItem(result);
 					annotation(anno);
 					annotationExist(true);
-					 
 				}
 			})
 			.fail(function() {

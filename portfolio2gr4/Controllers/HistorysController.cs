@@ -15,9 +15,7 @@ namespace portfolio2gr4.Controllers
 {
 	public class HistorysController : BaseApiController
 	{
-
 		private HistoryRepository _hisRepository = new HistoryRepository(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
-
 
 		//static HistoryMapper dataMapper = new HistoryMapper(ConfigurationManager.ConnectionStrings["remote"].ConnectionString);
 		//HistoryRepository _hisRepository = new HistoryRepository(dataMapper);
@@ -80,7 +78,7 @@ namespace portfolio2gr4.Controllers
 			response.Headers.Add("prev-page", prev);
 			return response;
 		}
-		/*public HttpResponseMessage Post([FromBody] HistoryModel model)
+		public HttpResponseMessage Post([FromBody] HistoryModel model)
 		{
 			var helper = new UrlHelper(Request);
 			var history = ModelFactory.Parse(model);
@@ -88,7 +86,7 @@ namespace portfolio2gr4.Controllers
 			return Request.CreateResponse(
 				HttpStatusCode.Created
 				, ModelFactory.Create(history));
-		}*/
+		}
 
 	}
 }

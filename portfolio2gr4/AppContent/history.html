@@ -1,1 +1,13 @@
-﻿ <h1>History:</h1>
+﻿<div class="history-page col-xs-12">
+	<h1 col-xs-12>History:</h1>
+	<h3 class="no-user" data-bind="visible:!currentUser()">
+		Sorry, you have to be logged in to view history.
+	</h3>
+	<div class="history-list" data-bind="visible:currentUser() , foreach:searchResult()">
+		 gsdfgs
+			<div class="history">
+			fsddf
+			</div>
+		 
+	</div>
+</div>

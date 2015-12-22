@@ -32,7 +32,7 @@
 			return menu === currentComponent();
 		};
 
-		var getSuggestions = function (target, event) {
+		var getSuggestions = function (target, event) { 
 			switch (searchOption()) {
 				case "Users":
 					//not implemented yet
@@ -41,13 +41,15 @@
 					//not implemented yet
 					break;
 				case "Questions":
-					if (searchText.isValid()) { 
+					if (searchText.isValid()) {
+						
 						$.getJSON("api/questions/search_title/" + searchText() + "-10-0", function (result) {
 							if (result.length >= 1) {
 								showSuggestions(true);
 								var titles = $.map(result, function (q) {
 									return { Title: q.Title, Id: q.Url.substring(36) };
 								});
+								
 								suggestions(titles);
 							}
 						});
@@ -67,21 +69,21 @@
 					//not implemented yet
 					break;
 				case "Questions":
-					console.log(searchText());
-
-					//$.ajax({
-					//	type: "POST",
-					//	url: "api/questions/" + currentQuestion().Id + "/votes",
-					//	data: ko.toJSON({ VoteType: 5, PostId: currentQuestion().Id, UserId: currentUser() }),
-					//	contentType: "application/json; charset=utf-8",
-					//	success: function (result) {
-					//		console.log("fave Added");
-					//	},
-					//	error: function (err) {
-					//		alert(err.status + " - " + err.statusText);
-					//	}
-					//});
-
+					if (currentUser()) {
+						$.ajax({
+							type: "POST",
+							url: "api/users/" + currentUser().Id + "/historys",
+							data: ko.toJSON({ UserId: currentUser().Id, Body: searchText(), Date: new Date().toLocaleString() }),
+							contentType: "application/json; charset=utf-8",
+							success: function (result) {
+								console.log("fave Added");
+							},
+							error: function (err) {
+								console.log(err.status + " - " + err.statusText);
+							}
+						});
+					}
+					
 					$.getJSON("api/questions/search/" + searchText() + "-10-1", function (result, text, jqXHR) {
 						var next = jqXHR.getResponseHeader('next-page');
 						var prev = jqXHR.getResponseHeader('prev-page');

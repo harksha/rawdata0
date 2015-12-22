@@ -16,7 +16,7 @@
 			</div>
 		</div> 
 
-		<div data-bind="visible:!searchResult().length" class="col-sm-12">
+		<div data-bind="visible:!searchResult().length && !currentQuestion()" class="col-sm-12">
 			There were no results found, sorry :(
 		</div>
 	</div>
