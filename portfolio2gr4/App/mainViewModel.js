@@ -43,11 +43,10 @@
 				case "Questions":
 					if (searchText.isValid()) { 
 						$.getJSON("api/questions/search_title/" + searchText() + "-10-1", function (result) {
-							console.log(result);
 							if (result.length >= 1) {
 								showSuggestions(true);
 								var titles = $.map(result, function (q) {
-									return { Title: q.Title, Url: q.Url };
+									return { Title: q.Title, Id: q.Url.substring(36) };
 								});
 								suggestions(titles);
 							}
@@ -84,6 +83,11 @@
 					break;
 			}
 		};
+
+		function goToQuestion(target) {
+			id = target.Id;
+			console.log(id);
+		}
 
 		function checkLogIn() {
 			if (localStorage.userId) {
@@ -137,7 +141,8 @@
 			currentUser: currentUser,
 			searchOptions:searchOptions,
 			searchOption: searchOption,
-			changeSearchOption:changeSearchOption
+			changeSearchOption: changeSearchOption,
+			goToQuestion:goToQuestion
 
 		}
 	};

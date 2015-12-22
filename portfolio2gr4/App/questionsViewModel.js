@@ -29,7 +29,6 @@
 		
 		function switchPage() {
 			$.getJSON(currentPage(), function (result, text, jqXHR) {
-				//console.log(this.xhr().getResponseHeader());
 				var next = jqXHR.getResponseHeader('next-page');
 				var prev = jqXHR.getResponseHeader('prev-page')
 				nextPage(next);

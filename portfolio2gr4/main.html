@@ -29,7 +29,7 @@
 					<div class="questions-suggestions" data-bind="visible:showSuggestions">
 						<ul class="suggestions-list col-xs-12 col-sm-6" data-bind="foreach: suggestions">
 							<li class="suggestion">
-								<a href="" class="suggestion-link" data-bind="text: $data.Title"></a>
+								<a href="" class="suggestion-link" data-bind="text: $data.Title,css:$data.Id, click:$parent.goToQuestion.bind()"></a>
 							</li>
 						</ul>
 					</div>
@@ -52,32 +52,6 @@
 	</div>
 </div>
 
-
-
-<!--
-<script type="text/html" id="annotations_view">
-	<h2>Annotation</h2>
-	<input type="checkbox" data-bind="checked: navigationViewModel.showList" />
-	<div data-bind="foreach: navigationViewModel.data, visible: navigationViewModel.showList">
-		<div data-bind="text: $data.Url"></div>
-		<div data-bind="text: $data.Body"></div>
-		<div data-bind="text: $data.Date"></div>
-	</div>
-</script>
-<script type="text/html" id="categories_view">
-	<h2>Categories</h2>
-	<div data-bind="foreach: navigationViewModel.data">
-		<div data-bind="text: name"></div>
-	</div>
-</script>
-<script type="text/html" id="history_view">
-	<h2>History</h2>
-	<div data-bind="foreach: navigationViewModel.history">
-		<div data-bind="text: Url"></div>
-		<div data-bind="text: body"></div>
-		<div data-bind="text: userId"></div>
-	</div>
-</script>-->
 
 
 <footer></footer>
